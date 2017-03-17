@@ -1,0 +1,13 @@
+/*
+!.gitignore
+!composer.json
+
+!app/
+
+!config/
+config/database.php
+
+!database/
+!public/
+!resources/
+!routes/
