@@ -8,6 +8,9 @@
 config/database.php
 
 !database/
+
 !public/
+public/temp
+
 !resources/
 !routes/
