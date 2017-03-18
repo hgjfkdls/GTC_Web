@@ -5,8 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'Gestión Técnico Contractual')</title>
-    {!! Html::style('css/app.css') !!}
-    {!! Html::script('js/app.js') !!}
+    {!! Html::style('css/bootstrap.css') !!}
+    {!! Html::script('js/jquery-3.2.0.min.js') !!}
+    {!! Html::script('js/bootstrap.js') !!}
 </head>
 <body>
 <div class="container">

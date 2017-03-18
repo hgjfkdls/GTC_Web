@@ -1,7 +1,5 @@
 <div class="well">
-    <blockquote>
-        @include('modulos.correspondencia.partials.path', ['patterns' => $patterns])
-    </blockquote>
+    @include('modulos.correspondencia.partials.path')
     {!! Form::open(['route' => 'correspondencia.buscar', 'method' => 'GET'], ['class'=>'form-horizontal']) !!}
     @foreach(array_keys($patterns) as $id)
         @foreach(array_keys($patterns[$id]) as $key)
