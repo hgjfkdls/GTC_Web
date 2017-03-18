@@ -37,20 +37,15 @@ class CorrespondenciaController extends Controller
             $i++;
         } while ($request->exists($pattern));
 
-        return view('correspondencia.buscar', [
+        return view('modulos.correspondencia.view', [
             'correspondencia' => isset($correspondencia) ? $correspondencia->get() : null,
             'patterns' => $patterns,
         ]);
     }
 
-    public function show_all()
-    {
-        return view('correspondencia.show_all', ['correspondencia' => Correspondencia::all()]);
-    }
-
     public function show_doc($id)
     {
-        return view('correspondencia.show_doc', ['id' => $id]);
+        return view('modulos.correspondencia.actions.show_doc', ['id' => $id]);
     }
 
     public function index()

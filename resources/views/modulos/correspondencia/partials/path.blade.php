@@ -1,4 +1,4 @@
-{!! link_to_route('correspondencia.buscar', 'Buscar') !!}
+{!! link_to_route('correspondencia.buscar', 'Busqueda Simple') !!}
 @if(count($patterns) > 0)
     >
 @endif

@@ -1,5 +1,5 @@
-@extends('master')
-@section('content')
+@extends('modulos.base')
+@section('modulo_content')
     <?php
     $rutaOrigen = DB::table('correspondencia')->where('id', '=', $id)->get()[0]->ruta_doc;
     $rutaDestino = 'C:/GTC_Web/public/temp/' . basename($rutaOrigen);

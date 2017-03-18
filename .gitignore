@@ -10,7 +10,7 @@ config/database.php
 !database/
 
 !public/
-public/temp
+public/temp/*
 
 !resources/
 !routes/

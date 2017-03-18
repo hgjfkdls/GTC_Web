@@ -22,6 +22,5 @@ Route::get('test', function () {
 Route::group(['prefix' => 'correspondencia'], function () {
     Route::get('/', ['uses' => 'CorrespondenciaController@buscar', 'as' => 'correspondencia.buscar']);
     Route::get('buscar', ['uses' => 'CorrespondenciaController@buscar', 'as' => 'correspondencia.buscar']);
-    Route::get('show_all', ['uses' => 'CorrespondenciaController@show_all', 'as' => 'correspondencia.show_all']);
     Route::get('show_doc/{id}', ['uses' => 'CorrespondenciaController@show_doc', 'as' => 'correspondencia.show_doc']);
 });

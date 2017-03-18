@@ -2,6 +2,7 @@
 @section('nav')
     @include('nav')
 @endsection
-@section('menu')
-    @include('correspondencia.partials.menu')
+@section('modulo')
+    @yield('modulo_navbar')
+    @yield('modulo_content')
 @endsection

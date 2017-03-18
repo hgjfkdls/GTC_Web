@@ -11,23 +11,12 @@
 <body>
 <div class="container">
     <div class="container-fluid">
-        <h2 class="row">@yield('title', 'Géstion Técnico Contractual')</h2>
-        <div class="row">@yield('nav')</div>
-        <br>
-        <div class="row">
-            <div class="col-md-2">
-                @yield('menu')
-            </div>
-            <div class="col-md-10">
-                <div class="row">
-                    <h4>@yield('path')</h4>
-                </div>
-                <div class="row">
-                    @yield('content')
-                </div>
-            </div>
-        </div>
-        <br>
+        <h2>@yield('title', 'Géstion Técnico Contractual')</h2>
+    </div>
+    <div class="container-fluid">@yield('nav')</div>
+    <br>
+    <div class="container-fluid">
+        @yield('modulo')
     </div>
 </div>
 </body>
