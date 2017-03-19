@@ -48,6 +48,11 @@ class CorrespondenciaController extends Controller
         return view('modulos.correspondencia.actions.show_doc', ['id' => $id]);
     }
 
+    public function show_txt($id)
+    {
+        return view('modulos.correspondencia.actions.show_doc', ['id' => $id]);
+    }
+
     public function index()
     {
         return $this->buscar();

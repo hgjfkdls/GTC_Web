@@ -7,6 +7,9 @@
         @endforeach
     @endforeach
     <div>{!! Form::hidden('u'.count($patterns), '#') !!}</div>
+    @if(isset($patterns['arr']))
+        <div>{!! Form::hidden('arr', $patterns['arr']) !!}</div>
+    @endif
     <div class='form-group'>
         {!! Form::label('p'.count($patterns),'Busqueda') !!}
         {!! Form::text('p'.count($patterns), null, [
