@@ -19,6 +19,10 @@ Route::get('test', function () {
     return view('test');
 })->name('test');
 
+Route::get('login', function () {
+    return view('modulos.login');
+})->name('login');
+
 Route::group(['prefix' => 'correspondencia'], function () {
     Route::get('/', ['uses' => 'CorrespondenciaController@buscar', 'as' => 'correspondencia.buscar']);
     Route::get('buscar', ['uses' => 'CorrespondenciaController@buscar', 'as' => 'correspondencia.buscar']);

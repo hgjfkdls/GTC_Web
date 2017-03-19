@@ -15,7 +15,8 @@
         {!! Form::text('p'.count($patterns), null, [
         'class'=>'form-control',
         'placeholder'=>'Ingrese el patrón de busqueda',
-        'required']) !!}
+        'required',
+        'autofocus']) !!}
     </div>
     <div class="row">
         <div class="form-group col-lg-6">

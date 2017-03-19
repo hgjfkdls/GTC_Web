@@ -3,16 +3,20 @@
     <tr>
         <th>
             <div class="btn-group btn-group-sm dropdown" style="min-width: 60px;">
-                <label class="btn btn-sm btn-default">
-                    <input class="btn" type="checkbox">
+                <label class="disabled btn btn-sm btn-default">
+                    <input class="disabled btn" type="checkbox">
                 </label>
-                <button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+                <button class="disabled btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-left">
-                    <li>
+                    <li class="disabled">
                         <a>Opcion 1</a>
+                    </li>
+                    <li class="disabled">
                         <a>Opcion 1</a>
+                    </li>
+                    <li class="disabled">
                         <a>Opcion 1</a>
                     </li>
                 </ul>
@@ -40,12 +44,12 @@
                             </button>
                             <ul class="dropdown-menu dropdown-menu-left">
                                 <li>
-                                    <a href="{{ url()->route('correspondencia.show_doc', [$row->id]) }}"
-                                       target="_blank">
+                                    <a href="{{ url()->route('correspondencia.show_doc', [$row->id]) }}" target="_blank">
                                         <span class="glyphicon glyphicon-file"></span> ver pdf
                                     </a>
-                                    <a href="{{ url()->route('correspondencia.show_txt', [$row->id]) }}"
-                                       target="_blank">
+                                </li>
+                                <li class="disabled">
+                                    <a href="{{ '#'/*url()->route('correspondencia.show_txt', [$row->id])*/ }}">
                                         <span class="glyphicon glyphicon-list-alt"></span> ver texto plano
                                     </a>
                                 </li>
