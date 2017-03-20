@@ -17,7 +17,9 @@
         echo 'Error de lectura';
     }
     } catch (Exception $e) {?>
-    <blockquote class="alert-danger">Error: El documento no puede ser cargado, contactese con el administrador.</blockquote>
+    <blockquote class="alert-danger">Error
+        <footer>El documento <strong>[{{ basename($rutaOrigen) }}]</strong> no puede ser cargado, contactese con el administrador.</footer>
+    </blockquote>
     <?php
     }
     ?>

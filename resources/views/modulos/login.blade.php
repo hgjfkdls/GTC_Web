@@ -3,8 +3,8 @@
 @endsection
 @section('modulo_content')
     <div class="container-fluid well well-lg" style="width: 300px;">
-        <form class="form-signin">
-            <h4 class="form-signin-heading text-center">Iniciar Sesión</h4>
+        {!! Form::open(['route' => 'login', 'method' => 'POST'], ['class'=>'form-signin']) !!}
+            <h5 class="form-signin-heading text-center">Iniciar Sesión</h5>
             <label for="inputEmail" class="sr-only">Email</label>
             <input type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
             <label for="inputPassword" class="sr-only">Password</label>
@@ -15,6 +15,6 @@
                 </label>
             </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        </form>
+        {!! Form::close() !!}
     </div>
 @endsection
