@@ -48,8 +48,8 @@
                                         <span class="glyphicon glyphicon-file"></span> ver pdf
                                     </a>
                                 </li>
-                                <li class="disabled">
-                                    <a href="{{ '#'/*url()->route('correspondencia.show_txt', [$row->id])*/ }}">
+                                <li>
+                                    <a href="{{ url()->route('correspondencia.show_txt', [$row->id]) }}" target="_blank">
                                         <span class="glyphicon glyphicon-list-alt"></span> ver texto plano
                                     </a>
                                 </li>

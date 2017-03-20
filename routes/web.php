@@ -19,12 +19,6 @@ Route::get('test', function () {
     return view('test');
 })->name('test');
 
-/*
-Route::get('login', function () {
-    return view('modulos.login');
-})->name('login');
-*/
-
 Route::resource('login', 'LoginController', [
     'names' => [
         'index' => 'login',
@@ -33,17 +27,9 @@ Route::resource('login', 'LoginController', [
     ]
 ]);
 
-/*
-Route::get('logout', [
-    'uses' => 'LoginController@Logout',
-    'as' => 'logout'
-]);
-Route::resource('usuario', 'UsuarioController');
-*/
-
 Route::group(['prefix' => 'correspondencia'], function () {
     Route::get('/', ['uses' => 'CorrespondenciaController@buscar', 'as' => 'correspondencia.buscar']);
     Route::get('buscar', ['uses' => 'CorrespondenciaController@buscar', 'as' => 'correspondencia.buscar']);
     Route::get('show_doc/{id}', ['uses' => 'CorrespondenciaController@show_doc', 'as' => 'correspondencia.show_doc']);
-    Route::get('show_txt/{id}', ['uses' => 'CorrespondenciaController@show_doc', 'as' => 'correspondencia.show_txt']);
+    Route::get('show_txt/{id}', ['uses' => 'CorrespondenciaController@show_txt', 'as' => 'correspondencia.show_txt']);
 });
