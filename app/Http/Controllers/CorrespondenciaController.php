@@ -9,7 +9,9 @@ class CorrespondenciaController extends Controller
 {
     public function buscar(Request $request)
     {
-        $patterns = [];
+        $per_page = 20;
+        $current_page = $request->exists('page') ? $request['page'] : 1;
+        $search_options = [];
         unset($correspondencia);
         $i = 0;
         do {
@@ -18,7 +20,7 @@ class CorrespondenciaController extends Controller
             $pattern = 'p' . $i;
             $url = 'u' . $i;
             if ($request->exists($column) && $request->exists($operator) && $request->exists($pattern) && $request->exists($url)) {
-                $patterns[] = [
+                $search_options[] = [
                     $column => $request[$column],
                     $operator => $request[$operator],
                     $pattern => $request[$pattern],
@@ -37,9 +39,24 @@ class CorrespondenciaController extends Controller
             $i++;
         } while ($request->exists($pattern));
 
+        $data_count = isset($correspondencia) ? $correspondencia->count() : 0;
+
+        if (isset($correspondencia)) $correspondencia = $correspondencia->paginate($per_page);
+
+        $response = [
+            'pagination' => [
+                'per_page' => $per_page,
+                'current_page' => $current_page,
+                'last_page' => ceil($data_count / $per_page),
+            ],
+            'data_count' => $data_count,
+            'data' => isset($correspondencia) ? $correspondencia : null
+        ];
+
         return view('modulos.correspondencia.view', [
-            'correspondencia' => isset($correspondencia) ? $correspondencia->get() : null,
-            'patterns' => $patterns,
+            'request' => $request->getQueryString(),
+            'response' => $response,
+            'patterns' => $search_options,
         ]);
     }
 

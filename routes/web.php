@@ -28,8 +28,8 @@ Route::resource('login', 'LoginController', [
 ]);
 
 Route::group(['prefix' => 'correspondencia'], function () {
-    Route::get('/', ['uses' => 'CorrespondenciaController@buscar', 'as' => 'correspondencia.buscar']);
-    Route::get('buscar', ['uses' => 'CorrespondenciaController@buscar', 'as' => 'correspondencia.buscar']);
-    Route::get('show_doc/{id}', ['uses' => 'CorrespondenciaController@show_doc', 'as' => 'correspondencia.show_doc']);
-    Route::get('show_txt/{id}', ['uses' => 'CorrespondenciaController@show_txt', 'as' => 'correspondencia.show_txt']);
+    Route::get('/', 'CorrespondenciaController@buscar')->name('correspondencia.buscar');
+    Route::get('buscar', 'CorrespondenciaController@buscar')->name('correspondencia.buscar');
+    Route::get('show_doc/{id}', 'CorrespondenciaController@show_doc')->name('correspondencia.show_doc');
+    Route::get('show_txt/{id}', 'CorrespondenciaController@show_txt')->name('correspondencia.show_txt');
 });

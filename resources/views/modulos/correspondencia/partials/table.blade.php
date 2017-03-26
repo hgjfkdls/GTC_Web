@@ -30,8 +30,8 @@
     </tr>
     </thead>
     <tbody>
-    @if(isset($correspondencia))
-        @foreach($correspondencia as $row)
+    @if(isset($response['data']))
+        @foreach($response['data'] as $row)
             <a>
                 <tr>
                     <td>
@@ -44,12 +44,14 @@
                             </button>
                             <ul class="dropdown-menu dropdown-menu-left">
                                 <li>
-                                    <a href="{{ url()->route('correspondencia.show_doc', [$row->id]) }}" target="_blank">
+                                    <a href="{{ url()->route('correspondencia.show_doc', [$row->id]) }}"
+                                       target="_blank">
                                         <span class="glyphicon glyphicon-file"></span> ver pdf
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ url()->route('correspondencia.show_txt', [$row->id]) }}" target="_blank">
+                                    <a href="{{ url()->route('correspondencia.show_txt', [$row->id]) }}"
+                                       target="_blank">
                                         <span class="glyphicon glyphicon-list-alt"></span> ver texto plano
                                     </a>
                                 </li>
