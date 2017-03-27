@@ -1,6 +1,6 @@
 <div class="well">
-    @include('modulos.correspondencia.partials.path')
-    {!! Form::open(['route' => 'correspondencia.buscar', 'method' => 'GET'], ['class'=>'form-horizontal']) !!}
+    @include('modulos.correspondencia.partials.simple_search_path')
+    {!! Form::open(['route' => 'correspondencia.simple_search', 'method' => 'GET'], ['class'=>'form-horizontal']) !!}
     @foreach(array_keys($patterns) as $id)
         @foreach(array_keys($patterns[$id]) as $key)
             <div>{!! Form::hidden($key, $patterns[$id][$key]) !!}</div>

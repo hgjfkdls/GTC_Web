@@ -1,5 +1,5 @@
 <blockquote>
-    {!! link_to_route('correspondencia.buscar', 'Busqueda Simple') !!}
+    {!! link_to_route('correspondencia.simple_search', 'Busqueda Simple') !!}
     @if(count($patterns) > 0)
         <span class="glyphicon glyphicon-menu-right"></span>
     @endif

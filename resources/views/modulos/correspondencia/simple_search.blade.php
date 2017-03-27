@@ -3,7 +3,7 @@
     @include('modulos.correspondencia.partials.navbar')
 @endsection
 @section('modulo_content')
-    @include('modulos.correspondencia.partials.simple_search')
+    @include('modulos.correspondencia.partials.simple_search_form')
     @include('modulos.correspondencia.partials.pagination')
     @include('modulos.correspondencia.partials.table')
     @include('modulos.correspondencia.partials.pagination')

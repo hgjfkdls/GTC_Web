@@ -6,8 +6,8 @@
                     Buscar <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="{{ url()->route('correspondencia.buscar') }}">Busqueda Simple</a></li>
-                    <li class="disabled"><a href="#">Busqueda Avanzada</a></li>
+                    <li><a href="{{ url()->route('correspondencia.simple_search') }}">Busqueda Simple</a></li>
+                    <li><a href="{{ url()->route('correspondencia.advanced_search') }}">Busqueda Avanzada</a></li>
                 </ul>
             </li>
         </ul>
