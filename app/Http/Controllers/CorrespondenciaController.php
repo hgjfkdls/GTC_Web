@@ -9,29 +9,72 @@ class CorrespondenciaController extends Controller
 {
     public function advanced_search(Request $request)
     {
+        $patterns = '';
+        $per_page = 20;
+        $current_page = $request->exists('page') ? $request['page'] : 1;
         $data = [];
+        $data_form = [];
         $i = 0;
-        if ($request->exists('pattern')) {
-            foreach (Correspondencia::all() as $row) {
-                if (file_exists($row->ruta_txt)) {
-                    $file = fopen($row->ruta_txt, 'r');
-                    $str_file = fread($file, filesize($row->ruta_txt));
-                    $str_file = preg_replace('/[^\w\.\-\n:,; \t]/', '', $str_file);
-                    $txt = preg_replace('/[^\w\.\-\n:,; \t' . utf8_encode('áäàâéëèêíïìîóöòôúüùû') . ']/im', '', utf8_encode($str_file));
-                    $matches = [];
-                    if (preg_match_all('/^.*(' . $request['pattern'] . ').*$/im', $txt, $matches)) {
-                        $data[] = ['data' => $row, 'matches' => $matches];
-                        $i++;
+        do {
+            $pattern = 'pattern' . $i;
+            $operator = 'operator' . $i;
+            $type = 'type' . $i;
+            $ignore_case = 'ignore_case' . $i;
+            $url = 'url' . $i;
+            $count = 'count' . $i;
+            if ($request->exists($pattern) && $request->exists($operator) && $request->exists($type) && $request->exists($ignore_case) && $request->exists($url)) {
+                $patterns .= '|' . $request[$pattern];
+                $aux = [
+                    $pattern => $request[$pattern],
+                    $operator => $request[$operator],
+                    $type => $request[$type],
+                    $ignore_case => $request[$ignore_case],
+                    $url => (strcmp($request[$url], '#') == 0 ? $request->getQueryString() : $request[$url]),
+                    $count => 0,
+                ];
+                if ($i == 0) {
+                    $data = Correspondencia::whereContent(
+                        $request[$pattern],
+                        substr($patterns, 1),
+                        null,
+                        $request[$type] == 'TP' ? false : true,
+                        $request[$ignore_case] == 'true' ? true : false
+                    );
+                } else {
+                    if ($request[$operator] == 'AND') {
+                        $data = Correspondencia::whereContent(
+                            $request[$pattern],
+                            substr($patterns, 1),
+                            $data
+                        );
+                    } else {
+                        $data = Correspondencia::orWhereContent(
+                            $request[$pattern],
+                            substr($patterns, 1),
+                            $data
+                        );
                     }
-                    fclose($file);
-                    if ($i > 99) break;
                 }
+                $aux[$count] = $request->exists($count) ? $request[$count] : count($data);
+                $data_form[] = $aux;
             }
-        }
+            $i++;
+        } while ($request->exists($pattern));
+
+        $data_count = count($data);
 
         $response = [
-            'data' => $data,
-            'pattern' => $request['pattern'],
+            'pagination' => [
+                'per_page' => $per_page,
+                'current_page' => $current_page,
+                'last_page' => ceil($data_count / $per_page),
+                'max_box' => 5,
+            ],
+            'request' => $request->getQueryString(),
+            'data_count' => $data_count,
+            'data' => array_slice($data, ($current_page - 1) * $per_page, $per_page),
+            'data_form' => $data_form,
+            'patterns' => substr($patterns, 1),
         ];
         return view('modulos.correspondencia.advanced_search', ['response' => $response]);
     }
@@ -40,8 +83,8 @@ class CorrespondenciaController extends Controller
     {
         $per_page = 20;
         $current_page = $request->exists('page') ? $request['page'] : 1;
-        $search_options = [];
-        unset($correspondencia);
+        $data_form = [];
+        unset($data);
         $i = 0;
         do {
             $column = 'c' . $i;
@@ -49,44 +92,43 @@ class CorrespondenciaController extends Controller
             $pattern = 'p' . $i;
             $url = 'u' . $i;
             if ($request->exists($column) && $request->exists($operator) && $request->exists($pattern) && $request->exists($url)) {
-                $search_options[] = [
+                $data_form[] = [
                     $column => $request[$column],
                     $operator => $request[$operator],
                     $pattern => $request[$pattern],
                     $url => (strcmp($request[$url], '#') == 0 ? $request->getQueryString() : $request[$url]),
                 ];
                 if ($i === 0) {
-                    $correspondencia = Correspondencia::where($request[$column], 'LIKE', '%' . $request[$pattern] . '%');
+                    $data = Correspondencia::where($request[$column], 'LIKE', '%' . $request[$pattern] . '%');
                 } else {
-                    if ($request[$operator] === 'AND') {
-                        $correspondencia = $correspondencia->where($request[$column], 'LIKE', '%' . $request[$pattern] . '%');
+                    if ($request[$operator] == 'AND') {
+                        $data = $data->where($request[$column], 'LIKE', '%' . $request[$pattern] . '%');
                     } else {
-                        $correspondencia = $correspondencia->orWhere($request[$column], 'LIKE', '%' . $request[$pattern] . '%');
+                        $data = $data->orWhere($request[$column], 'LIKE', '%' . $request[$pattern] . '%');
                     }
                 }
             }
             $i++;
         } while ($request->exists($pattern));
 
-        $data_count = isset($correspondencia) ? $correspondencia->count() : 0;
+        $data_count = isset($data) ? $data->count() : 0;
 
-        if (isset($correspondencia)) $correspondencia = $correspondencia->paginate($per_page);
+        if (isset($data)) $data = $data->paginate($per_page);
 
         $response = [
             'pagination' => [
                 'per_page' => $per_page,
                 'current_page' => $current_page,
                 'last_page' => ceil($data_count / $per_page),
+                'max_box' => 5,
             ],
+            'request' => $request->getQueryString(),
             'data_count' => $data_count,
-            'data' => isset($correspondencia) ? $correspondencia : null
+            'data' => isset($data) ? $data : null,
+            'data_form' => $data_form,
         ];
 
-        return view('modulos.correspondencia.simple_search', [
-            'request' => $request->getQueryString(),
-            'response' => $response,
-            'patterns' => $search_options,
-        ]);
+        return view('modulos.correspondencia.simple_search', ['response' => $response]);
     }
 
     public function show_doc($id)
