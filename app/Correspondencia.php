@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use League\Flysystem\Exception;
 
 class Correspondencia extends Model
 {
@@ -75,10 +76,14 @@ class Correspondencia extends Model
     {
         $content = '';
         if (file_exists($filePath)) {
-            $file = fopen($filePath, 'r');
-            $content = utf8_encode(fread($file, filesize($filePath)));
-            $content = preg_replace('/[^' . static::$valid_characters . ']/im', '', $content);
-            fclose($file);
+            try {
+                $file = fopen($filePath, 'r');
+                $content = utf8_encode(fread($file, filesize($filePath)));
+                $content = preg_replace('/[^' . static::$valid_characters . ']/im', '', $content);
+            } catch (Exception $e) {
+            } finally {
+                fclose($file);
+            }
         }
         return $content;
     }
