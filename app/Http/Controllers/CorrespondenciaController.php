@@ -18,12 +18,15 @@ class CorrespondenciaController extends Controller
         do {
             $pattern = 'pattern' . $i;
             $operator = 'operator' . $i;
-            $type = 'type' . $i;
+            $type = 'type' . $i; // PT | RE
             $ignore_case = 'ignore_case' . $i;
+            $words = 'words' . $i;
             $url = 'url' . $i;
             $count = 'count' . $i;
-            if ($request->exists($pattern) && $request->exists($operator) && $request->exists($type) && $request->exists($ignore_case) && $request->exists($url)) {
-                $patterns .= '|' . $request[$pattern];
+            if ($request->exists($pattern) && $request->exists($operator) && $request->exists($type) && $request->exists($url)) {
+                $s_pattern = $request[$type] == 'PT' ? preg_quote($request[$pattern]) : $request[$pattern];
+                $s_pattern = $request[$words] == 'true' ? '\b' . $s_pattern . '\b' : $s_pattern;
+                $patterns .= '|' . $s_pattern;
                 $aux = [
                     $pattern => $request[$pattern],
                     $operator => $request[$operator],
@@ -32,37 +35,27 @@ class CorrespondenciaController extends Controller
                     $url => (strcmp($request[$url], '#') == 0 ? $request->getQueryString() : $request[$url]),
                     $count => 0,
                 ];
-                if ($i == 0) {
-                    $data = Correspondencia::whereContent(
-                        $request[$pattern],
+                if ($request[$operator] == 'AND') {
+                    $data = Correspondencia::whereRegexContent(
+                        $s_pattern,
                         substr($patterns, 1),
-                        null,
-                        $request[$type] == 'TP' ? false : true,
+                        $i == 0 ? null : $data,
                         $request[$ignore_case] == 'true' ? true : false
                     );
                 } else {
-                    if ($request[$operator] == 'AND') {
-                        $data = Correspondencia::whereContent(
-                            $request[$pattern],
-                            substr($patterns, 1),
-                            $data
-                        );
-                    } else {
-                        $data = Correspondencia::orWhereContent(
-                            $request[$pattern],
-                            substr($patterns, 1),
-                            $data
-                        );
-                    }
+                    $data = Correspondencia::orWhereRegexContent(
+                        $s_pattern,
+                        substr($patterns, 1),
+                        $i == 0 ? null : $data,
+                        $request[$ignore_case] == 'true' ? true : false
+                    );
                 }
                 $aux[$count] = $request->exists($count) ? $request[$count] : count($data);
                 $data_form[] = $aux;
             }
             $i++;
         } while ($request->exists($pattern));
-
         $data_count = count($data);
-
         $response = [
             'pagination' => [
                 'per_page' => $per_page,
@@ -110,11 +103,8 @@ class CorrespondenciaController extends Controller
             }
             $i++;
         } while ($request->exists($pattern));
-
         $data_count = isset($data) ? $data->count() : 0;
-
         if (isset($data)) $data = $data->paginate($per_page);
-
         $response = [
             'pagination' => [
                 'per_page' => $per_page,
@@ -127,7 +117,6 @@ class CorrespondenciaController extends Controller
             'data' => isset($data) ? $data : null,
             'data_form' => $data_form,
         ];
-
         return view('modulos.correspondencia.simple_search', ['response' => $response]);
     }
 

@@ -52,6 +52,9 @@
                     <input type="checkbox" name="ignore_case{{ $i }}" value="true" checked>Ignorar mayúsculas y
                     minúsculas
                 </label>
+                <label>
+                    <input type="checkbox" name="words{{ $i }}" value="true" checked>Coincidir Palabras Completas
+                </label>
             </div>
         </div>
     </div>

@@ -18,8 +18,9 @@ class Correspondencia extends Model
         static::$valid_characters = '\w\.\-\n:,;\t ñÑ¬~$ºª°\'" ' . utf8_encode('áäàâéëèêíïìîóöòôúüùûÁÄÀÂÉËÈÊÍÏÌÎÓÖÒÔÚÜÙÛ');
     }
 
-    public static function whereContent($pattern, $patterns = null, $array = null, $regExp = true, $ignoreCase = true)
+    public static function whereRegexContent($pattern, $patterns = null, $array = null, $ignoreCase = true)
     {
+        set_time_limit(0);
         $response = [];
         if (!isset($patterns)) $patterns = $pattern;
         if (!isset($array)) {
@@ -38,7 +39,7 @@ class Correspondencia extends Model
                 $data = $array[$key]['data'];
                 if (file_exists($data->ruta_txt)) {
                     $fileContent = static::getFileContent($data->ruta_txt);
-                    if (preg_match('/' . $pattern . '/im', $fileContent)) {
+                    if (preg_match('/' . $pattern . '/' . ($ignoreCase ? 'i' : '') . 'm', $fileContent)) {
                         if (preg_match_all('/^.*(' . $patterns . ').*$/' . ($ignoreCase ? 'i' : '') . 'm', $fileContent, $matches)) {
                             $response[$data->codigo] = ['data' => $data, 'matches' => $matches];
                         }
@@ -51,23 +52,22 @@ class Correspondencia extends Model
         return $response;
     }
 
-    public static function orWhereContent($pattern, $patterns = null, $array = null, $regExp = true, $ignoreCase = true)
+    public static function orWhereRegexContent($pattern, $patterns = null, $array = null, $ignoreCase = true)
     {
+        set_time_limit(0);
         $response = [];
         if (!isset($patterns)) $patterns = $pattern;
         foreach (static::all() as $data) {
             if (file_exists($data->ruta_txt)) {
                 $fileContent = static::getFileContent($data->ruta_txt);
-                if (preg_match('/' . $pattern . '/im', $fileContent)) {
+                if (preg_match('/' . $pattern . '/' . ($ignoreCase ? 'i' : '') . 'm', $fileContent)) {
                     if (preg_match_all('/^.*(' . $patterns . ').*$/' . ($ignoreCase ? 'i' : '') . 'm', $fileContent, $matches)) {
                         $response[$data->codigo] = ['data' => $data, 'matches' => $matches];
                     }
                 }
             }
         }
-        if (isset($array)) {
-            $response = array_merge($array, $response);
-        }
+        if (isset($array)) $response = array_merge($array, $response);
         return $response;
     }
 

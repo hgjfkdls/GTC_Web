@@ -1,4 +1,3 @@
-<div>{{ $response['patterns'] }}</div>
 <div class="panel-group">
     @foreach($response['data'] as $row)
         <div class="panel panel-default">

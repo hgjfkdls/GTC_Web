@@ -21,7 +21,6 @@
             {!! Form::label('c'.$i, 'Columna') !!}
             {!! Form::select(
             'c'.$i, [
-                'id'=>'id',
                 'id_obra'=>'Obra',
                 'codigo' => 'Codigo',
                 'fecha_emisor' => 'Fecha',
