@@ -64,7 +64,6 @@ class CorrespondenciaController extends Controller
                 'max_box' => 5,
             ],
             'request' => $request->getQueryString(),
-            'data_count' => $data_count,
             'data' => array_slice($data, ($current_page - 1) * $per_page, $per_page),
             'data_form' => $data_form,
             'patterns' => substr($patterns, 1),
@@ -80,15 +79,17 @@ class CorrespondenciaController extends Controller
         unset($data);
         $i = 0;
         do {
-            $column = 'c' . $i;
-            $operator = 'o' . $i;
-            $pattern = 'p' . $i;
-            $url = 'u' . $i;
+            $column = 'column' . $i;
+            $operator = 'operator' . $i;
+            $pattern = 'pattern' . $i;
+            $count = 'count' . $i;
+            $url = 'url' . $i;
             if ($request->exists($column) && $request->exists($operator) && $request->exists($pattern) && $request->exists($url)) {
-                $data_form[] = [
+                $aux = [
                     $column => $request[$column],
                     $operator => $request[$operator],
                     $pattern => $request[$pattern],
+                    $count => $request[$count],
                     $url => (strcmp($request[$url], '#') == 0 ? $request->getQueryString() : $request[$url]),
                 ];
                 if ($i === 0) {
@@ -100,6 +101,8 @@ class CorrespondenciaController extends Controller
                         $data = $data->orWhere($request[$column], 'LIKE', '%' . $request[$pattern] . '%');
                     }
                 }
+                $aux[$count] = $request->exists($count) ? $request[$count] : count($data->get());
+                $data_form[] = $aux;
             }
             $i++;
         } while ($request->exists($pattern));
@@ -113,7 +116,6 @@ class CorrespondenciaController extends Controller
                 'max_box' => 5,
             ],
             'request' => $request->getQueryString(),
-            'data_count' => $data_count,
             'data' => isset($data) ? $data : null,
             'data_form' => $data_form,
         ];

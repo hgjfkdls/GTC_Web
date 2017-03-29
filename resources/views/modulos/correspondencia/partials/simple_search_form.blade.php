@@ -1,16 +1,16 @@
 @php($i = count($response['data_form']))
 <div class="well">
     @include('modulos.correspondencia.partials.simple_search_path')
-    {!! Form::open(['route' => 'correspondencia.simple_search', 'method' => 'GET'], ['class'=>'form-horizontal']) !!}
+    {!! Form::open(['route' => 'correspondencia.simple_search', 'method' => 'GET'], ['class' => 'form-horizontal']) !!}
     @foreach(array_keys($response['data_form']) as $id)
         @foreach(array_keys($response['data_form'][$id]) as $key)
             <div>{!! Form::hidden($key, $response['data_form'][$id][$key]) !!}</div>
         @endforeach
     @endforeach
-    <div>{!! Form::hidden('u'.$i, '#') !!}</div>
+    <div>{!! Form::hidden('url' . $i, '#') !!}</div>
     <div class='form-group'>
-        {!! Form::label('p'.$i,'Busqueda') !!}
-        {!! Form::text('p'.$i, null, [
+        {!! Form::label('pattern' . $i, 'Busqueda') !!}
+        {!! Form::text('pattern' . $i, null, [
         'class'=>'form-control',
         'placeholder'=>'Ingrese el patrón de busqueda',
         'required',
@@ -18,9 +18,9 @@
     </div>
     <div class="row">
         <div class="form-group col-lg-6">
-            {!! Form::label('c'.$i, 'Columna') !!}
+            {!! Form::label('column' . $i, 'Columna') !!}
             {!! Form::select(
-            'c'.$i, [
+            'column' . $i, [
                 'id_obra'=>'Obra',
                 'codigo' => 'Codigo',
                 'fecha_emisor' => 'Fecha',
@@ -31,9 +31,9 @@
                 ) !!}
         </div>
         <div class="form-group col-lg-6">
-            {!! Form::label('o'.$i, 'Operador') !!}
+            {!! Form::label('operator' . $i, 'Operador') !!}
             {!! Form::select(
-            'o'.$i, [
+            'operator' . $i, [
                 'AND'=>'AND',
                 'OR'=>'OR',
                 ],

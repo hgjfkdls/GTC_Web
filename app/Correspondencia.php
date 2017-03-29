@@ -78,8 +78,10 @@ class Correspondencia extends Model
         if (file_exists($filePath)) {
             try {
                 $file = fopen($filePath, 'r');
-                $content = utf8_encode(fread($file, filesize($filePath)));
-                $content = preg_replace('/[^' . static::$valid_characters . ']/im', '', $content);
+                if (filesize($filePath) > 0) {
+                    $content = utf8_encode(fread($file, filesize($filePath)));
+                    $content = preg_replace('/[^' . static::$valid_characters . ']/im', '', $content);
+                }
             } catch (Exception $e) {
             } finally {
                 fclose($file);
