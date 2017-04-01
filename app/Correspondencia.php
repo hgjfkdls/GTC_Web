@@ -19,13 +19,13 @@ class Correspondencia extends Model
         static::$valid_characters = '\w\.\-\n:,;\t ñÑ¬~$ºª°\'" ' . utf8_encode('áäàâéëèêíïìîóöòôúüùûÁÄÀÂÉËÈÊÍÏÌÎÓÖÒÔÚÜÙÛ');
     }
 
-    public static function whereRegexContent($pattern, $patterns = null, $array = null, $ignoreCase = true)
+    public static function whereRegexContent($pattern, $patterns = null, $array = null, $ignoreCase = true, $id_obra = 260)
     {
         set_time_limit(0);
         $response = [];
         if (!isset($patterns)) $patterns = $pattern;
         if (!isset($array)) {
-            foreach (static::all() as $data) {
+            foreach (static::all()->where('id_obra', $id_obra) as $data) {
                 if (file_exists($data->ruta_txt)) {
                     $fileContent = static::getFileContent($data->ruta_txt);
                     if (preg_match('/' . $pattern . '/' . ($ignoreCase ? 'i' : '') . 'm', $fileContent)) {
@@ -53,12 +53,12 @@ class Correspondencia extends Model
         return $response;
     }
 
-    public static function orWhereRegexContent($pattern, $patterns = null, $array = null, $ignoreCase = true)
+    public static function orWhereRegexContent($pattern, $patterns = null, $array = null, $ignoreCase = true, $id_obra = 260)
     {
         set_time_limit(0);
         $response = [];
         if (!isset($patterns)) $patterns = $pattern;
-        foreach (static::all() as $data) {
+        foreach (static::all()->where('id_obra', $id_obra) as $data) {
             if (file_exists($data->ruta_txt)) {
                 $fileContent = static::getFileContent($data->ruta_txt);
                 if (preg_match('/' . $pattern . '/' . ($ignoreCase ? 'i' : '') . 'm', $fileContent)) {

@@ -1,7 +1,7 @@
 @php($i = count($response['data_form']))
 <div class="well">
     @include('modulos.correspondencia.partials.simple_search_path')
-    {!! Form::open(['route' => 'correspondencia.simple_search', 'method' => 'GET'], ['class' => 'form-horizontal']) !!}
+    {!! Form::open(['url' => url()->route('correspondencia.simple_search', ['id_obra' => $response['id_obra']]), 'method' => 'GET'], ['class' => 'form-horizontal']) !!}
     @foreach(array_keys($response['data_form']) as $id)
         @foreach(array_keys($response['data_form'][$id]) as $key)
             <div>{!! Form::hidden($key, $response['data_form'][$id][$key]) !!}</div>
@@ -14,14 +14,14 @@
         'class'=>'form-control',
         'placeholder'=>'Ingrese el patrón de busqueda',
         'required',
-        'autofocus']) !!}
+        'autofocus']
+        ) !!}
     </div>
     <div class="row">
         <div class="form-group col-lg-6">
             {!! Form::label('column' . $i, 'Columna') !!}
             {!! Form::select(
             'column' . $i, [
-                'id_obra'=>'Obra',
                 'codigo' => 'Codigo',
                 'fecha_emisor' => 'Fecha',
                 'nombre' => 'Nombre'

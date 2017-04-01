@@ -1,5 +1,5 @@
 <blockquote>
-    {!! link_to_route('correspondencia.simple_search', 'Busqueda Simple') !!}
+    <a href="{{ url()->route('correspondencia.simple_search', ['id_obra' => $response['id_obra']]) }}">Busqueda Simple</a>
     @if(count($response['data_form']) > 0)
         <span class="glyphicon glyphicon-menu-right"></span>
     @endif

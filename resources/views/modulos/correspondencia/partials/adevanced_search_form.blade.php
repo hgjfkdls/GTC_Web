@@ -3,7 +3,7 @@
     {{-- Ruta de Busqueda --}}
     @include('modulos.correspondencia.partials.advanced_search_path')
     {{-- Inicia el Formulario --}}
-    {!! Form::open(['route' => 'correspondencia.advanced_search', 'method' => 'GET'], ['class'=>'form']) !!}
+    {!! Form::open(['url' => url()->route('correspondencia.advanced_search', ['id_obra' => $response['id_obra']]), 'method' => 'GET'], ['class'=>'form']) !!}
     {{-- Sector oculto del formulario --}}
     @foreach(array_keys($response['data_form']) as $id)
         @foreach(array_keys($response['data_form'][$id]) as $key)

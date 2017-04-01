@@ -22,7 +22,6 @@
                 </ul>
             </div>
         </th>
-        <th>obra</th>
         <th>codigo</th>
         <th>fecha</th>
         <th>nombre</th>
@@ -57,7 +56,6 @@
                             </ul>
                         </div>
                     </td>
-                    <td>{{ $row->id_obra }}</td>
                     <td>{{ $row->codigo }}</td>
                     <td>{{ date_format(date_create($row->fecha_receptor), 'Y/m/d') }}</td>
                     <td>{{ $row->nombre }}</td>
