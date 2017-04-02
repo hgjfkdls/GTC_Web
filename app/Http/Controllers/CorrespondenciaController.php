@@ -12,7 +12,7 @@ class CorrespondenciaController extends Controller
         $patterns = '';
         $data = [];
         $data_form = [];
-        $per_page = 20;
+        $per_page = 50;
         $current_page = $request->exists('page') ? $request['page'] : 1;
         $i = 0;
         do {
@@ -64,7 +64,7 @@ class CorrespondenciaController extends Controller
                 'per_page' => $per_page,
                 'current_page' => $current_page,
                 'last_page' => ceil($data_count / $per_page),
-                'max_box' => 5,
+                'max_box' => 11,
             ],
             'request' => $request->getQueryString(),
             'data' => array_slice($data, ($current_page - 1) * $per_page, $per_page),
@@ -78,7 +78,7 @@ class CorrespondenciaController extends Controller
     public function simple_search(Request $request, $id_obra = 260)
     {
         $data_form = [];
-        $per_page = 20;
+        $per_page = 50;
         $current_page = $request->exists('page') ? $request['page'] : 1;
         $i = 0;
         unset($data);
@@ -138,7 +138,7 @@ class CorrespondenciaController extends Controller
                 'per_page' => $per_page,
                 'current_page' => $current_page,
                 'last_page' => ceil($data_count / $per_page),
-                'max_box' => 5,
+                'max_box' => 11,
             ],
             'request' => $request->getQueryString(),
             'data' => isset($data) ? $data : null,
