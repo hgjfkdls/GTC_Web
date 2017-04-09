@@ -71,6 +71,7 @@ class CorrespondenciaController extends Controller
             'data_form' => $data_form,
             'patterns' => substr($patterns, 1),
             'id_obra' => $id_obra,
+            'navbar' => 'search',
         ];
         return view('modulos.correspondencia.advanced_search', ['response' => $response]);
     }
@@ -144,8 +145,14 @@ class CorrespondenciaController extends Controller
             'data' => isset($data) ? $data : null,
             'data_form' => $data_form,
             'id_obra' => $id_obra,
+            'navbar' => 'search',
         ];
         return view('modulos.correspondencia.simple_search', ['response' => $response]);
+    }
+
+    public function temas(Request $request, $id_obra = 260)
+    {
+        return view('modulos.correspondencia.temas', ['response' => ['id_obra' => $id_obra, 'navbar' => 'temas']]);
     }
 
     public function show_doc($id)
