@@ -69,8 +69,8 @@ class DatabaseSeeder extends Seeder
                         $match = preg_match($pattern, $archivo, $matches);
                         if ($match) {
                             $fecha = date_create_from_format('!Ymd', $matches[1]);
-                            $ruta_doc = $doc_dir . '\\' . $archivo;
-                            $ruta_txt = $txt_dir . '\\' . basename($archivo, '.' . pathinfo($archivo, PATHINFO_EXTENSION)) . '.txt';
+                            $ruta_doc = $doc_dir . '/' . preg_replace('/\\\/','/',$archivo);
+                            $ruta_txt = $txt_dir . '/' . basename($archivo, '.' . pathinfo($archivo, PATHINFO_EXTENSION)) . '.txt';
                             DB::table('correspondencia')->insert(
                                 [
                                     'fecha_emisor' => $fecha === 0 ? null : $fecha,
