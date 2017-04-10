@@ -11,7 +11,7 @@
                 </ul>
             </li>
             <li class="{{ $response['navbar'] == 'temas' ? 'active' : '' }}" >
-                <a href="{{ url()->route('correspondencia.temas') }}">
+                <a href="{{ url()->route('correspondencia.temas', ['id_obra' => $response['id_obra']]) }}">
                     Temas
                 </a>
             </li>
