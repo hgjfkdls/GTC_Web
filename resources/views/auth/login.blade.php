@@ -1,6 +1,4 @@
 @extends('modulos.base')
-@section('modulo_navbar')
-@endsection
 @section('modulo_content')
     <div class="container">
         <div class="row">
