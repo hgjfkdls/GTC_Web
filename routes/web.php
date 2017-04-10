@@ -19,6 +19,7 @@ Route::get('test', function () {
     return view('test');
 })->name('test');
 
+/*
 Route::resource('login', 'LoginController', [
     'names' => [
         'index' => 'login',
@@ -26,6 +27,7 @@ Route::resource('login', 'LoginController', [
         'store' => 'login.store',
     ]
 ]);
+*/
 
 Route::group(['prefix' => 'correspondencia'], function () {
     Route::get('temas/{id_obra?}', 'CorrespondenciaController@temas')->name('correspondencia.temas');
@@ -34,4 +36,10 @@ Route::group(['prefix' => 'correspondencia'], function () {
     Route::get('advanced_search/{id_obra?}', 'CorrespondenciaController@advanced_search')->name('correspondencia.advanced_search');
     Route::get('show_doc/{id}', 'CorrespondenciaController@show_doc')->name('correspondencia.show_doc');
     Route::get('show_txt/{id}', 'CorrespondenciaController@show_txt')->name('correspondencia.show_txt');
+});
+
+Auth::routes();
+
+Route::get('/home', function(){
+    return redirect()->route('home');
 });

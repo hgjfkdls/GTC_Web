@@ -7,7 +7,7 @@ class DatabaseSeeder extends Seeder
 {
     private $param_260 = [
         'id_obra' => 260,
-        'root_folder' => 'C:/FTP/Public/260',
+        'root_folder' => '/home/alvaro/GTC_Web/public/DB',
         'doc_folder' => 'PDF',
         'txt_folder' => 'TXT',
         'sub_folders' => [

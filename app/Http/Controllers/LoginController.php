@@ -13,7 +13,8 @@ class LoginController extends Controller
      */
     public function index()
     {
-        return view('modulos.login');
+        $response = ['id_obra' => 0];
+        return view('modulos.login', $response);
     }
 
     /**

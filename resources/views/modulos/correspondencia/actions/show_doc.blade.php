@@ -3,7 +3,7 @@
     <?php
     try {
     $rutaOrigen = DB::table('correspondencia')->where('id', '=', $id)->get()[0]->ruta_doc;
-    $rutaDestino = 'C:/GTC_Web/public/temp/' . basename($rutaOrigen);
+    $rutaDestino = '/home/alvaro/GTC_Web/public/temp/' . basename($rutaOrigen);
     $url = '/temp/' . basename($rutaOrigen);
     if (copy($rutaOrigen, $rutaDestino)) {?>
     <script>

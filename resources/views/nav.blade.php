@@ -16,7 +16,7 @@
         </a>
     </li>
     <li class="{{ Route::currentRouteName() == 'login' ? 'active' : '' }} navbar-right disabled">
-        <a href="#">
+        <a href="{{route('login') }}">
             <span class="glyphicon glyphicon-log-in"></span> Login
         </a>
     </li>
