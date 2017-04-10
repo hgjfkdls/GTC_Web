@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Clasificacion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ClasificacionController extends Controller
 {
@@ -14,16 +15,14 @@ class ClasificacionController extends Controller
      */
     public function index(Request $request, $id_obra = 260)
     {
-        //
-        $id_usuario = 0;
-        $data = Clasificacion::where('id_usuario', '=', $id_usuario)->where('id_padre', null)->get();
+        $data = Clasificacion::where('id_usuario', '=', Auth::id())->where('id_obra', $id_obra)->where('id_padre', null)->get();
 
         return view(
             'modulos.correspondencia.temas',
             ['response' => [
                 'data' => $data,
                 'id_obra' => $id_obra,
-                'id_usuario' => 0,
+                'id_usuario' => Auth::id(),
                 'navbar' => 'temas',
             ]]
         );

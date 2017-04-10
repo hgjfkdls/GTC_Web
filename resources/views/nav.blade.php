@@ -21,6 +21,7 @@
                 {{ Auth::user()->name }} <span class="glyphicon glyphicon-option-vertical"></span>
             </a>
             <ul class="dropdown-menu">
+                <li class="disabled"><a href="#"><span class="glyphicon glyphicon-wrench"></span> Configuración</a></li>
                 <li><a href="{{ route('logout') }}"><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesión</a></li>
             </ul>
         </li>

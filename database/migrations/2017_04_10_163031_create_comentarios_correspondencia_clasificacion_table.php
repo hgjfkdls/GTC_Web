@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateClasificacionTable extends Migration
+class CreateComentariosCorrespondenciaClasificacionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreateClasificacionTable extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('clasificacion')) {
-            Schema::create('clasificacion', function (Blueprint $table) {
+        if (!Schema::hasTable('comentarios_correspondencia_clasificacion')) {
+            Schema::create('comentarios_correspondencia_clasificacion', function (Blueprint $table) {
                 $table->increments('id');
-                $table->integer('id_padre')->nullable();
+                $table->integer('id_correspondencia_clasificacion')->nullable();
                 $table->integer('id_usuario')->nullable();
-                $table->integer('id_obra')->nullable();
-                $table->string('nombre', 400)->nullable();
-                $table->string('estilo', 400)->nullable();
-                $table->string('descripcion', 400)->nullable();
+                $table->string('contenido', 600)->nullable();
                 $table->timestamps();
             });
         }
@@ -34,6 +31,6 @@ class CreateClasificacionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clasificacion');
+        Schema::dropIfExists('comentarios_correspondencia_clasificacion');
     }
 }
