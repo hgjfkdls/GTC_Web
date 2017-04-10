@@ -16,7 +16,7 @@ class ClasificacionController extends Controller
     {
         //
         $id_usuario = 0;
-        $data = Clasificacion::where('id_usuario', '=', $id_usuario)->get();
+        $data = Clasificacion::where('id_usuario', '=', $id_usuario)->where('id_padre', null)->get();
 
         return view(
             'modulos.correspondencia.temas',

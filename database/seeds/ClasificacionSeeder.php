@@ -17,19 +17,26 @@ class ClasificacionSeeder extends Seeder
             DB::table('clasificacion')->insert(
                 [
                     'id_usuario' => 0,
-                    'nombre' => 'Primer Tema',
+                    'nombre' => '1. Primer Tema',
                 ]
             );
             DB::table('clasificacion')->insert(
                 [
                     'id_usuario' => 0,
-                    'nombre' => 'Segundo Tema',
+                    'nombre' => '2. Segundo Tema',
                 ]
             );
             DB::table('clasificacion')->insert(
                 [
                     'id_usuario' => 0,
-                    'nombre' => 'Tercer Tema',
+                    'nombre' => '3. Tercer Tema',
+                ]
+            );
+            DB::table('clasificacion')->insert(
+                [
+                    'id_padre' => 1,
+                    'id_usuario' => 0,
+                    'nombre' => '1.1. Hola',
                 ]
             );
         }

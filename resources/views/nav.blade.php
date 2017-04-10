@@ -15,9 +15,20 @@
             190. Alternativas de Acceso a Iquique
         </a>
     </li>
-    <li class="{{ Route::currentRouteName() == 'login' ? 'active' : '' }} navbar-right disabled">
-        <a href="{{route('login') }}">
-            <span class="glyphicon glyphicon-log-in"></span> Login
-        </a>
-    </li>
+    @if(Auth::check())
+        <li class="dropdown navbar-right">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                {{ Auth::user()->name }} <span class="glyphicon glyphicon-option-vertical"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="{{ route('logout') }}"><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesión</a></li>
+            </ul>
+        </li>
+    @else
+        <li class="{{ Route::currentRouteName() == 'login' ? 'active' : '' }} navbar-right">
+            <a href="{{ route('login') }}">
+                <span class="glyphicon glyphicon-log-in"></span> Iniciar Sesión
+            </a>
+        </li>
+    @endif
 </ul>

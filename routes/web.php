@@ -19,15 +19,12 @@ Route::get('test', function () {
     return view('test');
 })->name('test');
 
-/*
-Route::resource('login', 'LoginController', [
-    'names' => [
-        'index' => 'login',
-        'create' => 'login.create',
-        'store' => 'login.store',
-    ]
-]);
-*/
+
+Route::get('logout', function () {
+    Auth::logout();
+    return redirect()->route('home');
+})->name('logout');
+
 
 Route::group(['prefix' => 'correspondencia'], function () {
     Route::get('temas/{id_obra?}', 'ClasificacionController@index')->name('correspondencia.temas');
@@ -40,6 +37,6 @@ Route::group(['prefix' => 'correspondencia'], function () {
 
 Auth::routes();
 
-Route::get('/home', function(){
+Route::get('/home', function () {
     return redirect()->route('home');
 });
