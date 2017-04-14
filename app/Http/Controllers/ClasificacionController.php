@@ -9,11 +9,17 @@ use Illuminate\Support\Facades\Auth;
 
 class ClasificacionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index(Request $request, $id_obra = 260)
     {
         $data = Clasificacion::where('id_usuario', '=', Auth::id())->where('id_obra', $id_obra)->where('id_padre', null)->get();
