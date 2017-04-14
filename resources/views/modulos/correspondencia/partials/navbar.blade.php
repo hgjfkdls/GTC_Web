@@ -7,17 +7,21 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="{{ url()->route('correspondencia.simple_search', ['id_obra' => $response['id_obra']]) }}">Busqueda
-                            Simple</a></li>
+                        <a href="{{ url()->route('correspondencia.simple_search', ['id_obra' => $response['id_obra']]) }}">
+                            Busqueda Simple
+                        </a>
+                    </li>
                     <li>
-                        <a href="{{ url()->route('correspondencia.advanced_search', ['id_obra' => $response['id_obra']]) }}">Busqueda
-                            Avanzada</a></li>
+                        <a href="{{ url()->route('correspondencia.advanced_search', ['id_obra' => $response['id_obra']]) }}">
+                            Busqueda Avanzada
+                        </a>
+                    </li>
                 </ul>
             </li>
             @if(Auth::check())
                 <li class="{{ $response['navbar'] == 'temas' ? 'active' : '' }}">
-                    <a href="{{ url()->route('correspondencia.temas', ['id_obra' => $response['id_obra']]) }}">
-                        Temas
+                    <a href="{{ url()->route('correspondencia.etiquetas', ['id_obra' => $response['id_obra']]) }}">
+                        Etiquetas
                     </a>
                 </li>
             @endif

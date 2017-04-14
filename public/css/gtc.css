@@ -1,0 +1,30 @@
+div.tag {
+    cursor: pointer;
+    cursor: hand;
+    font-weight: bold;
+    padding: 5px 10px 5px 10px;
+    border-radius: 10px;
+    background-color: #FFF;
+    border: solid 1px #AAA;
+}
+
+.cursor-hand {
+    cursor: pointer;
+    cursor: hand;
+}
+
+.glyphicon-btn {
+    cursor: pointer;
+    cursor: hand;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.glyphicon-btn:hover {
+    background: #CCC;
+}
+
+table.tag-table {
+    width: 100%;
+    margin-bottom: 5px;
+}

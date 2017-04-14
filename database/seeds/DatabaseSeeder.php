@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UsersTableSeeder::class);
         if (Schema::hasTable('correspondencia')) {
-            DB::table('correspondencia')->delete();
+            DB::table('correspondencia')->truncate();
             $this->add($this->param_260);
         }
     }

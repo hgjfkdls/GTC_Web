@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Clasificacion;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +17,6 @@ class ClasificacionController extends Controller
     public function index(Request $request, $id_obra = 260)
     {
         $data = Clasificacion::where('id_usuario', '=', Auth::id())->where('id_obra', $id_obra)->where('id_padre', null)->get();
-
         return view(
             'modulos.correspondencia.temas',
             ['response' => [
@@ -41,32 +41,47 @@ class ClasificacionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         //
+        if ($request->ajax()) {
+            $id = Clasificacion::insertGetId([
+                'id_padre' => $request['id_padre'] == 'null' ? null : intval($request['id_padre']),
+                'id_usuario' => Auth::id(),
+                'id_obra' => $request['id_obra'],
+                'nombre' => $request['nombre'],
+                'created_at' => date_create(),
+                'updated_at' => date_create(),
+            ]);
+            return $this->getTagRowView($id);
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         //
+        $tags = Clasificacion::where('id_padre', $id);
+        if ($request->ajax() && count($tags->get()) > 0) {
+            return $this->getTagRowsView($tags);
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         //
     }
@@ -74,23 +89,63 @@ class ClasificacionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         //
+        if ($request->ajax()) {
+            if ($request->exists('nombre')) {
+                $row = Clasificacion::where('id', $id);
+                $row->update(['nombre' => $request['nombre']]);
+                return $this->getTagRowsView($row);
+            }
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         //
+        if ($request->ajax()) {
+            Clasificacion::where('id', '=', $id)->delete();
+        }
     }
+
+    private function getTagRowView($id)
+    {
+        return view()->make(
+            'modulos.correspondencia.partials.tag_row',
+            [
+                'tags' => Clasificacion::where('id', $id)->get(),
+                'level' => $this->getLevel($id, 0),
+            ]
+        )->render();
+    }
+
+    private function getTagRowsView($tags)
+    {
+        return view()->make(
+            'modulos.correspondencia.partials.tag_row',
+            [
+                'tags' => $tags->get(),
+                'level' => $this->getLevel($tags->get()[0]->id, 0),
+            ]
+        )->render();
+    }
+
+    private function getLevel($id, $level)
+    {
+        $tag = Clasificacion::where('id', $id)->get()[0];
+        if (is_null($tag->id_padre)) return $level;
+        return $this->getLevel($tag->id_padre, $level + 1);
+    }
+
 }

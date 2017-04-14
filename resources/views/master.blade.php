@@ -6,13 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'Motor de Búsqueda')</title>
     {!! Html::style('css/bootstrap.css') !!}
+    {!! Html::style('css/gtc.css') !!}
     {!! Html::script('js/jquery-3.2.0.min.js') !!}
     {!! Html::script('js/bootstrap.js') !!}
+    {!! Html::script('js/gtc.js') !!}
 </head>
 <body>
 <div class="container">
     <div class="container-fluid">
-        <h2>@yield('title', 'Motor de Búsqueda - Correspondencia')</h2>
+        <h2><a href="{{ route('home') }}">@yield('title', 'Motor de Búsqueda - Correspondencia')</a></h2>
     </div>
     <div class="container-fluid">@yield('nav')</div>
     <br>
@@ -20,5 +22,7 @@
         @yield('modulo')
     </div>
 </div>
+@yield('style')
+@yield('script')
 </body>
 </html>

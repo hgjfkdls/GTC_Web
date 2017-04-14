@@ -19,15 +19,15 @@ Route::get('test', function () {
     return view('test');
 })->name('test');
 
-
 Route::get('logout', function () {
     Auth::logout();
     return redirect()->route('home');
 })->name('logout');
 
+Route::resource('etiqueta', 'ClasificacionController');
 
 Route::group(['prefix' => 'correspondencia'], function () {
-    Route::get('temas/{id_obra?}', 'ClasificacionController@index')->name('correspondencia.temas');
+    Route::get('etiquetas/{id_obra?}', 'ClasificacionController@index')->name('correspondencia.etiquetas');
     Route::get('/{id_obra?}', 'CorrespondenciaController@simple_search')->name('correspondencia.simple_search');
     Route::get('simple_search/{id_obra?}', 'CorrespondenciaController@simple_search')->name('correspondencia.simple_search');
     Route::get('advanced_search/{id_obra?}', 'CorrespondenciaController@advanced_search')->name('correspondencia.advanced_search');
