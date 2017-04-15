@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-sm-3">
             <div class="well">
-                <div class="tag-container" data-id_padre="" data-level="0">
+                <div class="tag-container" data-id_padre="">
                     @if(isset($response['data']))
                         @include('modulos.correspondencia.partials.tag_row', ['tags' => $response['data']])
                     @endif
@@ -47,21 +47,15 @@
             // se ejecuta cuando se presiona la etiqueta, pregunta si tiene etiquetas hijas y las carga si existen
             $(document).on('click', 'div.tag', function () {
                 var table = $(this).parents('table');
-                var id = table.data('id');
-                var id_padre = table.data('id_padre');
+                var id_padre = table.data('id');
                 var level = parseInt(table.parents('div.tag-container').data('level'));
-                var form = $('#form-show');
-                var url = form.attr('action').replace(':TAG_ID', id);
-                var data = form.serialize();
-
-                var container = $('div.tag-container[data-id_padre="' + id + '"]');
-
+                var container = $('div.tag-container[data-id_padre="' + id_padre + '"]');
                 if (container.length) {
                     container.remove();
                 } else {
-                    $.post(url, data, function (result) {
-                        table.after('<div class="tag-container" data-id_padre="' + id + '" data-level="' + (level + 1) + '"></div>');
-                        $('div.tag-container[data-id_padre="' + id + '"]').append(result);
+                    tag_show(id_padre, function (result) {
+                        table.after('<div class="tag-container" data-id_padre="' + id_padre + '"></div>');
+                        $('div.tag-container[data-id_padre="' + id_padre + '"]').append(result);
                     });
                 }
             });
@@ -72,16 +66,7 @@
                 var nombre = input.val().trim();
                 if (e.keyCode == 13 && nombre !== '') {
                     var id = input.parents('table.tag-table').data('id');
-                    var form = $('#form-update');
-                    var url = form.attr('action').replace(':TAG_ID', id);
-                    var obj = {
-                        'nombre': nombre
-                    };
-                    var data = form.serialize() + '&' + Object.keys(obj).map(function (key) {
-                            return encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]);
-                        }).join('&');
-
-                    $.post(url, data, function (result) {
+                    tag_update(id, {'nombre': nombre}, function (result) {
                         var table = input.parents('table.tag-table');
                         var expandido = table.hasClass('expandido');
                         console.log(expandido);
@@ -100,6 +85,11 @@
                     var container = $('div.tag-container[data-id_padre="' + id_padre + '"]');
                     if (container.length) {
                         container.append(result);
+                    } else {
+                        tag_show(id_padre, function (result) {
+                            table.after('<div class="tag-container" data-id_padre="' + id_padre + '"></div>');
+                            $('div.tag-container[data-id_padre="' + id_padre + '"]').append(result);
+                        });
                     }
                 });
             });
@@ -114,14 +104,19 @@
             });
 
             // crear una nueva tag
-            $(document).on('click', 'div#tag-store', function (e) {
-                e.preventDefault();
+            $(document).on('click', 'div#tag-store', function () {
                 tag_add(null, function (result) {
                     $('div.tag-container[data-id_padre=""]').append(result)
                 });
             });
         });
 
+        function tag_show(id_padre, callBack) {
+            var form = $('#form-show');
+            var url = form.attr('action').replace(':TAG_ID', id_padre);
+            var data = form.serialize();
+            $.post(url, data, callBack);
+        }
 
         function tag_add(id_padre, callBack) {
             var form = $('#form-store');
@@ -137,6 +132,14 @@
             $.post(url, data, callBack);
         }
 
+        function tag_update(id, obj, callBack) {
+            var form = $('#form-update');
+            var url = form.attr('action').replace(':TAG_ID', id);
+            var data = form.serialize() + '&' + Object.keys(obj).map(function (key) {
+                    return encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]);
+                }).join('&');
+            $.post(url, data, callBack);
+        }
 
         function tag_destroy(id, callBack) {
             var form = $('#form-destroy');
