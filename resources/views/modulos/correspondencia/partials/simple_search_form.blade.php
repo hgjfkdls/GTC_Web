@@ -12,6 +12,7 @@
         {!! Form::label('pattern' . $i, 'Busqueda') !!}
         {!! Form::text('pattern' . $i, null, [
         'class'=>'form-control',
+        'id' => 'simple-search-pattern-input',
         'placeholder'=>'Ingrese el patrón de busqueda',
         'required',
         'autofocus']
