@@ -1,3 +1,15 @@
+div.tag-container {
+}
+
+div.tag-container table.tag-table {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+div.tag-container table.tag-table td {
+    padding: 0px;
+}
+
 div.tag {
     cursor: pointer;
     cursor: hand;
@@ -20,11 +32,14 @@ div.tag {
     padding: 5px;
 }
 
-.glyphicon-btn:hover {
-    background: #CCC;
+label.glyphicon-btn {
+    cursor: pointer;
+    cursor: hand;
+    border-radius: 5px;
+    padding: 1px 5px 1px 5px;
+    margin: 3px 0px 0px 0px;
 }
 
-table.tag-table {
-    width: 100%;
-    margin-bottom: 5px;
+.glyphicon-btn:hover {
+    background: #CCC;
 }

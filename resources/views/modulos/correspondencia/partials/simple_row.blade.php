@@ -24,13 +24,13 @@
                     </a>
                 </li>
                 <li>
-                    <a class="tag-etiquetar">
+                    <a class="tag-etiquetar" href="#">
                         <span class="glyphicon glyphicon-tags"></span>
                         Etiquetar
                     </a>
                 </li>
                 <li>
-                    <a class="tag-descargar">
+                    <a class="tag-descargar" href="#">
                         <span class="glyphicon glyphicon-download-alt"></span>
                         Descargar
                     </a>

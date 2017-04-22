@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Clasificacion;
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,16 +21,40 @@ class ClasificacionController extends Controller
 
     public function index(Request $request, $id_obra = 260)
     {
-        $data = Clasificacion::where('id_usuario', '=', Auth::id())->where('id_obra', $id_obra)->where('id_padre', null)->get();
-        return view(
-            'modulos.correspondencia.temas',
-            ['response' => [
-                'data' => $data,
-                'id_obra' => $id_obra,
-                'id_usuario' => Auth::id(),
-                'navbar' => 'temas',
-            ]]
-        );
+        if ($request->ajax()) {
+            $tags = Clasificacion::where(
+                'id_usuario',
+                Auth::id()
+            )->where(
+                'id_obra',
+                $request->exists('id_obra') ? $request['id_obra'] : $id_obra
+            )->where(
+                'id_padre', null
+            );
+            if (count($tags->get()) > 0) {
+                return $this->getTagRowsView($this->getHasChildrens($tags->get()));
+            }
+        } else {
+            $data = Clasificacion::where(
+                'id_usuario',
+                Auth::id()
+            )->where(
+                'id_obra',
+                $id_obra
+            )->where(
+                'id_padre',
+                null
+            )->get();
+            return view(
+                'modulos.correspondencia.temas',
+                ['response' => [
+                    'data' => $data,
+                    'id_obra' => $id_obra,
+                    'id_usuario' => Auth::id(),
+                    'navbar' => 'temas',
+                ]]
+            );
+        }
     }
 
     /**
@@ -77,7 +100,7 @@ class ClasificacionController extends Controller
         //
         $tags = Clasificacion::where('id_padre', $id);
         if ($request->ajax() && count($tags->get()) > 0) {
-            return $this->getTagRowsView($tags);
+            return $this->getTagRowsView($this->getHasChildrens($tags->get()));
         }
     }
 
@@ -106,7 +129,7 @@ class ClasificacionController extends Controller
             if ($request->exists('nombre')) {
                 $row = Clasificacion::where('id', $id);
                 $row->update(['nombre' => $request['nombre']]);
-                return $this->getTagRowsView($row);
+                return $this->getTagRowsView($this->getHasChildrens($row->get()));
             }
         }
     }
@@ -141,8 +164,8 @@ class ClasificacionController extends Controller
         return view()->make(
             'modulos.correspondencia.partials.tag_row',
             [
-                'tags' => $tags->get(),
-                'level' => $this->getLevel($tags->get()[0]->id, 0),
+                'tags' => $tags,
+                'level' => $this->getLevel($tags[0]->id, 0),
             ]
         )->render();
     }
@@ -154,4 +177,13 @@ class ClasificacionController extends Controller
         return $this->getLevel($tag->id_padre, $level + 1);
     }
 
+    private function getHasChildrens($data)
+    {
+        $tags = [];
+        foreach ($data as $tag) {
+            $tag['hasChildrens'] = (count(Clasificacion::where('id_padre', $tag['id'])->get()) > 0);
+            $tags[] = $tag;
+        }
+        return $tags;
+    }
 }

@@ -8,18 +8,16 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    {!! Form::label('filto','Filtro') !!}
+                    {!! Form::label('filtro','Filtro') !!}
                     {!! Form::text('filtro', null, [
                     'class'=>'form-control',
-                    'id' => 'myModalInput',
+                    'id' => 'modalInput',
                     ]) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('etiqueta','Seleccion') !!}
                 </div>
-                <div class="well">
-                    ajax de etiquetas [TODO]
-                </div>
+                @include('modulos.correspondencia.partials.tag_edit_select_list')
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Aceptar</button>

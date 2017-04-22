@@ -15,8 +15,9 @@
 
             $(document).on('click', 'a.tags-etiquetar', function (e) {
                 e.preventDefault();
-                $('#myModal').modal({'keyboard': true});
-                console.log('etiquetar seleccion: ' + JSON.stringify(get_idArray()));
+                var arr = get_idArray();
+                if (arr.length > 0) $('#myModal').modal({'keyboard': true});
+                console.log('etiquetar seleccion: ' + JSON.stringify(arr));
             });
 
             $(document).on('click', 'a.tags-descargar', function (e) {
@@ -64,17 +65,8 @@
             });
 
             $('#myModal').on('shown.bs.modal', function () {
-                $('#myModalInput').focus()
+                $('#modalInput').focus();
             })
-
         });
-
-        function get_idArray() {
-            var id_arr = [];
-            $('input.tag-checkbox:checked').each(function () {
-                id_arr.push($(this).parents('tr').data('id'));
-            });
-            return id_arr;
-        }
     </script>
 @endsection

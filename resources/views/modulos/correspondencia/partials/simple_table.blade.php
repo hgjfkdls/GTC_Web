@@ -14,13 +14,13 @@
                         Selección
                     </li>
                     <li>
-                        <a class="tags-etiquetar">
+                        <a class="tags-etiquetar" href="#">
                             <span class="glyphicon glyphicon-tags"></span>
                             Etiquetar Selección
                         </a>
                     </li>
                     <li>
-                        <a class="tags-descargar">
+                        <a class="tags-descargar" href="#">
                             <span class="glyphicon glyphicon-download-alt"></span>
                             Descargar Selección
                         </a>
