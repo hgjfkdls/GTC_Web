@@ -29,19 +29,19 @@
 
         // se ejecuta cuando se presiona la etiqueta, pregunta si tiene etiquetas hijas y las carga si existen
         $(document).on('click', 'div.tag', function () {
-            var table = $(this).parents('table');
-            var tag_span = table.find('div.tag span');
-            var id_padre = table.data('id');
-            var container = $('div.tag-container[data-id_padre="' + id_padre + '"]');
-            if (container.length) {
+            var tag_table = $(this).parents('table.tag-table');
+            var tag_span = tag_table.find('div.tag span');
+            var id = tag_table.data('id');
+            var tag_container = $('div.tag-container[data-id_padre="' + id + '"]');
+            if (tag_container.length) {
                 tag_span.replaceClass('glyphicon-minus-sign', 'glyphicon-plus-sign');
-                container.remove();
+                tag_container.remove();
             } else {
-                tag_show(id_padre, function (result) {
+                tag_show(id, function (result) {
                     if (result != '') {
                         tag_span.replaceClass('glyphicon-plus-sign', 'glyphicon-minus-sign');
-                        table.after('<div class="tag-container" data-id_padre="' + id_padre + '"></div>');
-                        $('div.tag-container[data-id_padre="' + id_padre + '"]').append(result);
+                        tag_table.after('<div class="tag-container" data-id_padre="' + id + '"></div>');
+                        $('div.tag-container[data-id_padre="' + id + '"]').append(result);
                     }
                 });
             }
@@ -112,57 +112,18 @@
         });
     });
 
-    function tag_index(id_obra, callBack) {
-        var form = $('#form-index');
-        var url = form.attr('action');
-        $.post(url, unirFormData('#form-index', {'id_obra': id_obra}), callBack);
-    }
-
-    function tag_show(id_padre, callBack) {
-        var form = $('#form-show');
-        var url = form.attr('action').replace(':TAG_ID', id_padre);
-        var data = form.serialize();
-        $.post(url, data, callBack);
-    }
-
-    function tag_update(id, obj, callBack) {
-        var form = $('#form-update');
-        var url = form.attr('action').replace(':TAG_ID', id);
-        var data = form.serialize() + '&' + Object.keys(obj).map(function (key) {
-                return encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]);
-            }).join('&');
-        $.post(url, data, callBack);
-    }
-
-    function tag_store(id_padre, id_obra, callBack) {
-        var form = $('#form-store');
-        var url = form.attr('action');
-        var obj = {
-            'id_obra': id_obra,
-            'nombre': 'Nueva Etiqueta',
-            'id_padre': id_padre
-        };
-        var data = form.serialize() + '&' + Object.keys(obj).map(function (key) {
-                return encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]);
-            }).join('&');
-        $.post(url, data, callBack);
-    }
-
-    function tag_destroy(id, callBack) {
-        var form = $('#form-destroy');
-        var url = form.attr('action').replace(':TAG_ID', id);
-        var data = form.serialize();
-        $.post(url, data, callBack);
-    }
-
-    function unirFormData(formSelector, data) {
-        var f = $(formSelector);
-        return f.serialize() + '&' + Object.keys(data).map(function (key) {
-                return encodeURIComponent(key) + '=' + encodeURIComponent(data[key]);
-            }).join('&');
-    }
-
 })();
+
+function hexc(colorval) {
+    var parts = colorval.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+    delete(parts[0]);
+    for (var i = 1; i <= 3; ++i) {
+        parts[i] = parseInt(parts[i]).toString(16);
+        if (parts[i].length == 1) parts[i] = '0' + parts[i];
+    }
+    color = '#' + parts.join('');
+    return color;
+}
 
 function get_idArray() {
     var id_arr = [];
@@ -170,4 +131,54 @@ function get_idArray() {
         id_arr.push($(this).parents('tr').data('id'));
     });
     return id_arr;
+}
+
+function tag_index(id_obra, callBack) {
+    var form = $('#form-index');
+    var url = form.attr('action');
+    $.post(url, unirFormData('#form-index', {'id_obra': id_obra}), callBack);
+}
+
+function tag_show(id_padre, callBack) {
+    var form = $('#form-show');
+    var url = form.attr('action').replace(':TAG_ID', id_padre);
+    var data = form.serialize();
+    $.post(url, data, callBack);
+}
+
+function tag_update(id, obj, callBack) {
+    var form = $('#form-update');
+    var url = form.attr('action').replace(':TAG_ID', id);
+    var data = form.serialize() + '&' + Object.keys(obj).map(function (key) {
+            return encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]);
+        }).join('&');
+    $.post(url, data, callBack);
+}
+
+function tag_store(id_padre, id_obra, callBack) {
+    var form = $('#form-store');
+    var url = form.attr('action');
+    var obj = {
+        'id_obra': id_obra,
+        'nombre': 'Nueva Etiqueta',
+        'id_padre': id_padre
+    };
+    var data = form.serialize() + '&' + Object.keys(obj).map(function (key) {
+            return encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]);
+        }).join('&');
+    $.post(url, data, callBack);
+}
+
+function tag_destroy(id, callBack) {
+    var form = $('#form-destroy');
+    var url = form.attr('action').replace(':TAG_ID', id);
+    var data = form.serialize();
+    $.post(url, data, callBack);
+}
+
+function unirFormData(formSelector, data) {
+    var f = $(formSelector);
+    return f.serialize() + '&' + Object.keys(data).map(function (key) {
+            return encodeURIComponent(key) + '=' + encodeURIComponent(data[key]);
+        }).join('&');
 }

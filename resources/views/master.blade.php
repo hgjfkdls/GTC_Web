@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'Motor de Búsqueda')</title>
     {!! Html::style('css/bootstrap.css') !!}
+    {!! Html::style('css/spectrum.css') !!}
     {!! Html::style('css/gtc.css') !!}
     {!! Html::script('js/jquery-3.2.0.min.js') !!}
     {!! Html::script('js/bootstrap.js') !!}
+    {!! Html::script('js/spectrum.js') !!}
     {!! Html::script('js/gtc.js') !!}
 </head>
 <body>

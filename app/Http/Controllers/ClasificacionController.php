@@ -126,11 +126,10 @@ class ClasificacionController extends Controller
     {
         //
         if ($request->ajax()) {
-            if ($request->exists('nombre')) {
-                $row = Clasificacion::where('id', $id);
-                $row->update(['nombre' => $request['nombre']]);
-                return $this->getTagRowsView($this->getHasChildrens($row->get()));
-            }
+            $row = Clasificacion::where('id', $id);
+            if ($request->exists('nombre')) $row->update(['nombre' => $request['nombre']]);
+            if ($request->exists('estilo')) $row->update(['estilo' => $request['estilo']]);
+            return $this->getTagRowsView($this->getHasChildrens($row->get()));
         }
     }
 

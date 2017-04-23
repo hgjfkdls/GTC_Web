@@ -1,5 +1,5 @@
 <div class="well">
-    <div><b>Etiquetas - {{ isset($response) }} - {{ isset($response) ? $response['id_obra'] : 260 }}</b></div>
+    <div><b>Etiquetas</b></div>
     <br>
     <div class="tag-container" id="tag-container" data-id_padre="" data-id_obra="{{ isset($response) ? $response['id_obra'] : 260 }}">
     </div>

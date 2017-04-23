@@ -18,13 +18,34 @@
                                    value="{{ $tag->nombre }}">
                         </li>
                         <li class="divider"></li>
-                        <li class="dropdown-header"><b>Opciones</b></li>
+                        <li class="dropdown-header"><b><span class="glyphicon glyphicon-pencil"></span> Estilo</b></li>
                         <li>
                             <a href="#">
-                                <span class="glyphicon glyphicon-pencil"></span>
-                                Estilo
+                                Color de Fondo
+                                <input type="text" id="color_picker{{ $tag->id }}"/>
+                                <script>
+                                    var cp = $('#color_picker{{ $tag->id }}');
+                                    var tag = $($('table.tag-table[data-id="' + {{ $tag->id }} +'"]')[0]).find('td div.tag')[0];
+                                    cp.val(hexc($(tag).css('background-color')));
+                                    cp.spectrum({
+                                        'showInput': false,
+                                        'showButtons': false,
+                                        'move': function (color) {
+                                            var tag = $($('table.tag-table[data-id="' + {{ $tag->id }} +'"]')[0]).find('td div.tag')[0];
+                                            $(tag).css('background-color', color.toHexString());
+                                        },
+                                        'change': function (color) {
+                                            var tag = $($('table.tag-table[data-id="' + {{ $tag->id }} +'"]')[0]).find('td div.tag')[0];
+                                            console.log('background-color: ' + color.toHexString());
+                                            tag_update({{ $tag->id }}, {'estilo': "background-color: " + color.toHexString()}, function (response) {
+
+                                            });
+                                        }
+                                    });
+                                </script>
                             </a>
                         </li>
+                        <li class="dropdown-header"><b>Opciones</b></li>
                         <li>
                             <a href="#" class="tag-addSubtag">
                                 <span class="glyphicon glyphicon-plus"></span>
@@ -43,7 +64,7 @@
             <td width="10px">
             </td>
             <td>
-                <div class="tag">
+                <div class="tag" style="{{ $tag->estilo }}">
                     {{ $tag->nombre }}
                     @if(isset($tag->hasChildrens))
                         @if($tag->hasChildrens)
