@@ -1,7 +1,7 @@
 <div class="well">
-    <div><b>Etiquetas</b></div>
+    <div><b>Etiquetas - {{ isset($response) }} - {{ isset($response) ? $response['id_obra'] : 260 }}</b></div>
     <br>
-    <div class="tag-container" id="tag-container" data-id_padre="">
+    <div class="tag-container" id="tag-container" data-id_padre="" data-id_obra="{{ isset($response) ? $response['id_obra'] : 260 }}">
     </div>
     <div class="btn-group btn-group-sm">
         <div class="btn btn-success glyphicon glyphicon-plus" id="tag-store"></div>
@@ -30,6 +30,6 @@
 
 <script>
     $(document).ready(function () {
-        $('#tag-container').tagContainer('#form-index', {{ isset($response) ? $response['id_obra'] : 260 }});
+        $('#tag-container').tagContainer();
     });
 </script>

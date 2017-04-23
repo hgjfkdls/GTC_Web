@@ -1,18 +1,18 @@
 (function () {
+    var $id_obra;
+    var $tag_container;
 
     $.prototype.replaceClass = function (a, b) {
         $(this).removeClass(a);
         $(this).addClass(b);
     };
 
-    $.prototype.tagContainer = function (formSelector, id_obra) {
-        var tag = $(this);
-        var form = $(formSelector);
-        var url = form.attr('action');
-        var data = form.serialize();
-        $.post(url, unirFormData(formSelector, {'id_obra': id_obra}), function (result) {
-            tag.empty();
-            tag.append(result);
+    $.prototype.tagContainer = function () {
+        $tag_container = $(this);
+        $id_obra = $tag_container.data('id_obra');
+        tag_index($id_obra, function (result) {
+            $tag_container.empty();
+            $tag_container.append(result);
         });
     };
 
@@ -21,11 +21,9 @@
         $(document).on('click', '.checkeable-glyphicon', function () {
             var $this = $(this);
             if ($this.hasClass('glyphicon-unchecked')) {
-                $this.removeClass('glyphicon-unchecked');
-                $this.addClass('glyphicon-check');
+                $this.replaceClass('glyphicon-unchecked', 'glyphicon-check');
             } else if ($this.hasClass('glyphicon-check')) {
-                $this.removeClass('glyphicon-check');
-                $this.addClass('glyphicon-unchecked');
+                $this.replaceClass('glyphicon-check', 'glyphicon-unchecked');
             }
         });
 
@@ -59,7 +57,7 @@
                     var table = input.parents('table.tag-table');
                     table.replaceWith(result);
                     if ($('div.tag-container[data-id_padre="' + id + '"]').length) {
-                        var span = $('table.tag-table[data-id="' + id +'"]').find('div.tag span');
+                        var span = $('table.tag-table[data-id="' + id + '"]').find('div.tag span');
                         span.replaceClass('glyphicon-plus-sign', 'glyphicon-minus-sign');
                     }
                 });
@@ -73,8 +71,7 @@
             var table = $this.parents('table.tag-table');
             var tag = table.find('div.tag');
             var id_padre = table.data('id');
-            var level = parseInt(table.parents('div.tag-container').data('level'));
-            tag_store(id_padre, 260, function (result) {
+            tag_store(id_padre, $id_obra, function (result) {
                 var container = $('div.tag-container[data-id_padre="' + id_padre + '"]');
                 if (container.length) {
                     container.append(result);
@@ -96,29 +93,29 @@
             var $this = $(this);
             var table = $this.parents('table');
             tag_destroy(table.data('id'), function () {
-                var container = $($this.parents('div.tag-container')[0]);//.css('border', 'solid 2px #F00;');
+                var container = $($this.parents('div.tag-container')[0]);
                 table.remove();
                 if (container.children().length == 0) {
                     var id_padre = container.data('id_padre');
-                    container.remove();
-                    $('table.tag-table[data-id="' + id_padre + '"] .tag span').remove();
+                    if (container.data('id_padre') != '') container.remove();
+                    var span = $('table.tag-table[data-id="' + id_padre + '"] .tag span');
+                    span.removeClass('glyphicon-plus-sign');
+                    span.removeClass('glyphicon-minus-sign');
                 }
-                ;
             });
         });
 
         $(document).on('click', '#tag-store', function () {
-            tag_store(null, 260, function (result) {
+            tag_store(null, $id_obra, function (result) {
                 $('div.tag-container[data-id_padre=""]').append(result);
             });
         });
     });
 
-    function tag_index(callBack) {
+    function tag_index(id_obra, callBack) {
         var form = $('#form-index');
         var url = form.attr('action');
-        var data = form.serialize();
-        $.post(url, data, callBack);
+        $.post(url, unirFormData('#form-index', {'id_obra': id_obra}), callBack);
     }
 
     function tag_show(id_padre, callBack) {
