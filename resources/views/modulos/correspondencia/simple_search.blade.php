@@ -17,7 +17,7 @@
                 e.preventDefault();
                 var arr = get_idArray();
                 if (arr.length > 0) $('#myModal').modal({'keyboard': true});
-                console.log('etiquetar seleccion: ' + JSON.stringify(arr));
+                console.log('etiquetar seleccion: ', arr);
             });
 
             $(document).on('click', 'a.tags-descargar', function (e) {

@@ -18,6 +18,23 @@
 
     $(document).ready(function () {
 
+        $(document).on('move.spectrum', function (e, color) {
+            var id = $(e.target).data('id');
+            if (id) {
+                var tag = $('div.tag[data-id="' + id + '"]');
+                tag.css('background-color', color.toHexString());
+            }
+        });
+
+        $(document).on('change.spectrum', function (e, color) {
+            var id = $(e.target).data('id');
+            if (id) {
+                var tag = $('div.tag[data-id="' + id + '"]');
+                tag_update(id, {'estilo': "background-color: " + color.toHexString()}, function (response) {
+                });
+            }
+        });
+
         $(document).on('click', '.checkeable-glyphicon', function () {
             var $this = $(this);
             if ($this.hasClass('glyphicon-unchecked')) {
