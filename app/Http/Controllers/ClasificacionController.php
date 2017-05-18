@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Clasificacion;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -77,7 +78,7 @@ class ClasificacionController extends Controller
     {
         //
         if ($request->ajax()) {
-            $id = Clasificacion::insertGetId([
+            $item = Clasificacion::create([
                 'id_padre' => $request['id_padre'] == 'null' ? null : intval($request['id_padre']),
                 'id_usuario' => Auth::id(),
                 'id_obra' => $request['id_obra'],
@@ -85,7 +86,7 @@ class ClasificacionController extends Controller
                 'created_at' => date_create(),
                 'updated_at' => date_create(),
             ]);
-            return $this->getTagRowView($id);
+            return $this->getTagRowView($item->id);
         }
     }
 
@@ -98,9 +99,11 @@ class ClasificacionController extends Controller
     public function show(Request $request, $id)
     {
         //
-        $tags = Clasificacion::where('id_padre', $id);
-        if ($request->ajax() && count($tags->get()) > 0) {
-            return $this->getTagRowsView($this->getHasChildrens($tags->get()));
+        if ($request->ajax()) {
+            $tags = Clasificacion::find($id)->hijas()->get();
+            if (count($tags) > 0) {
+                return $this->getTagRowsView($this->getHasChildrens($tags));
+            }
         }
     }
 
@@ -110,7 +113,7 @@ class ClasificacionController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $id)
+    public function edit($id)
     {
         //
     }
@@ -143,7 +146,7 @@ class ClasificacionController extends Controller
     {
         //
         if ($request->ajax()) {
-            Clasificacion::where('id', '=', $id)->delete();
+            Clasificacion::find($id)->delete();
         }
     }
 
@@ -169,11 +172,9 @@ class ClasificacionController extends Controller
         )->render();
     }
 
-    private function getLevel($id, $level)
+    private function getLevel($id)
     {
-        $tag = Clasificacion::where('id', $id)->get()[0];
-        if (is_null($tag->id_padre)) return $level;
-        return $this->getLevel($tag->id_padre, $level + 1);
+        return Clasificacion::find($id)->level();
     }
 
     private function getHasChildrens($data)

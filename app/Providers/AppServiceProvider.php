@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Clasificacion;
+use App\Etiquetador;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -14,6 +16,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        Clasificacion::deleting(function (Clasificacion $clasificacion) {
+            foreach ($clasificacion->hijas()->cursor() as $item){
+                $item->delete();
+            }
+            Etiquetador::where('id_clasificacion', $clasificacion->id)->delete();
+        });
     }
 
     /**

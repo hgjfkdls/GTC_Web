@@ -4,7 +4,7 @@
         <th width="60px">
             <div class="btn-group btn-group-sm dropdown" style="min-width: 60px;">
                 <label class="btn btn-sm btn-default">
-                    <input class="btn tags-checkbox" type="checkbox">
+                    <input class="btn docs-checkbox" type="checkbox">
                 </label>
                 <button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
                     <span class="caret"></span>
@@ -13,12 +13,14 @@
                     <li class="dropdown-header">
                         Selección
                     </li>
-                    <li>
-                        <a class="tags-etiquetar" href="#">
-                            <span class="glyphicon glyphicon-tags"></span>
-                            Etiquetar Selección
-                        </a>
-                    </li>
+                    @if(Auth::check())
+                        <li>
+                            <a class="tags-etiquetar" href="#">
+                                <span class="glyphicon glyphicon-tags"></span>
+                                Etiquetar Selección
+                            </a>
+                        </li>
+                    @endif
                     <li>
                         <a class="tags-descargar" href="#">
                             <span class="glyphicon glyphicon-download-alt"></span>
@@ -34,10 +36,12 @@
     </tr>
     </thead>
     <tbody>
-    @if(isset($response['data']))
-        @foreach($response['data'] as $row)
-            @include('modulos.correspondencia.partials.simple_row')
-        @endforeach
+    @if(isset($response))
+        @if(isset($response['data']))
+            @foreach($response['data'] as $row)
+                @include('modulos.correspondencia.partials.simple_row')
+            @endforeach
+        @endif
     @endif
     </tbody>
 </table>

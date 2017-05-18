@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Clasificacion;
 
 class ClasificacionSeeder extends Seeder
 {
@@ -13,33 +14,39 @@ class ClasificacionSeeder extends Seeder
     {
         //
         if (Schema::hasTable('clasificacion')) {
-            DB::table('clasificacion')->truncate();
-            DB::table('clasificacion')->insert([
-                'id_usuario' => 1,
+            Clasificacion::truncate();
+            Clasificacion::create([
                 'id_obra' => 260,
-                'nombre' => '1. Primer Tema',
-            ]);
-            DB::table('clasificacion')->insert([
                 'id_usuario' => 1,
-                'id_obra' => 260,
-                'nombre' => '2. Segundo Tema',
+                'nombre' => "Etiqueta 1",
             ]);
-            DB::table('clasificacion')->insert([
+            Clasificacion::create([
+                'id_obra' => 260,
                 'id_usuario' => 1,
-                'id_obra' => 260,
-                'nombre' => '3. Tercer Tema',
+                'nombre' => "Etiqueta 2",
             ]);
-            DB::table('clasificacion')->insert([
+            Clasificacion::create([
+                'id_obra' => 260,
+                'id_usuario' => 1,
+                'nombre' => "Etiqueta 3",
+            ]);
+            Clasificacion::create([
                 'id_padre' => 1,
-                'id_usuario' => 1,
                 'id_obra' => 260,
-                'nombre' => '1.1. Hola',
+                'id_usuario' => 1,
+                'nombre' => "Etiqueta 1.1",
             ]);
-            DB::table('clasificacion')->insert([
+            Clasificacion::create([
                 'id_padre' => 1,
-                'id_usuario' => 1,
                 'id_obra' => 260,
-                'nombre' => '1.2. Chao',
+                'id_usuario' => 1,
+                'nombre' => "Etiqueta 1.2",
+            ]);
+            Clasificacion::create([
+                'id_padre' => 4,
+                'id_obra' => 260,
+                'id_usuario' => 1,
+                'nombre' => "Etiqueta 1.1.1",
             ]);
         }
     }

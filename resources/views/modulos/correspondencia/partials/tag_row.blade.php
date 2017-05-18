@@ -4,7 +4,7 @@
         <tr>
             <td style="width: {{ isset($level) ? ($level * 20) : 0 }}px;"></td>
             <td width="20px" valign="center">
-                <label class="glyphicon-btn"><input class="cursor-hand" type="checkbox"></label>
+                <label class="glyphicon-btn"><input class="cursor-hand tag-checkbox" type="checkbox"></label>
                 {{--<div class="cursor-link glyphicon glyphicon-unchecked glyphicon-btn checkeable-glyphicon"></div>--}}
             </td>
             <td width="20px">
@@ -21,12 +21,26 @@
                         <li class="dropdown-header"><b><span class="glyphicon glyphicon-pencil"></span> Estilo</b></li>
                         <li>
                             <a href="#">
-                                Color de Fondo
-                                <input type="text" data-id="{{ $tag->id }}" class="color-picker"/>
+                                Color de Texto
+                                <input type="text" data-id="{{ $tag->id }}" data-target="color" class="color-picker"/>
                                 <script>
-                                    var cp = $('input.color-picker[data-id="{{ $tag->id }}"]');
+                                    var cp = $('input.color-picker[data-id="{{ $tag->id }}"][data-target="color"]');
                                     var tag = $('div.tag[data-id="{{ $tag->id }}"]');
-                                    cp.val(hexc($(tag).css('background-color')));
+                                    cp.val(hexc(tag.css('color')));
+                                    cp.spectrum({
+                                        'showButtons': false,
+                                    });
+                                </script>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Color de Fondo
+                                <input type="text" data-id="{{ $tag->id }}" data-target="background-color" class="color-picker"/>
+                                <script>
+                                    var cp = $('input.color-picker[data-id="{{ $tag->id }}"][data-target="background-color"]');
+                                    var tag = $('div.tag[data-id="{{ $tag->id }}"]');
+                                    cp.val(hexc(tag.css('background-color')));
                                     cp.spectrum({
                                         'showButtons': false,
                                     });

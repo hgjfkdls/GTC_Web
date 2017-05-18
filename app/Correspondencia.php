@@ -10,13 +10,21 @@ class Correspondencia extends Model
 {
     //
     protected $table = 'correspondencia';
-    protected $fillable = ['id'];
+
+//    protected $fillable = ['id_obra', 'codigo', 'fecha_emisor', 'fecha_receptor', 'nombre', 'ruta_doc', 'ruta_txt', 'emisor', 'receptor', 'materia', 'referencia', 'clasificacion', 'anteriores'];
+    protected $guarded = ['id'];
+
     static $valid_characters;
 
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
         static::$valid_characters = '\w\.\-\n:,;\t ñÑ¬~$ºª°\'" ' . utf8_encode('áäàâéëèêíïìîóöòôúüùûÁÄÀÂÉËÈÊÍÏÌÎÓÖÒÔÚÜÙÛ');
+    }
+
+    public function etiquetas()
+    {
+        return $this->belongsToMany('App\Clasificacion', 'correspondencia_clasificacion', 'id_correspondencia', 'id_clasificacion');
     }
 
     public static function whereRegexContent($pattern, $patterns = null, $array = null, $ignoreCase = true, $id_obra = 260)

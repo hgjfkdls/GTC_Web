@@ -7,15 +7,20 @@
     @include('modulos.correspondencia.partials.pagination')
     @include('modulos.correspondencia.partials.simple_table')
     @include('modulos.correspondencia.partials.pagination')
-    @include('modulos.correspondencia.partials.etiqueta_modal')
+    @if(Auth::check())
+        @include('modulos.correspondencia.partials.etiqueta_modal')
+    @endif
 @endsection
 @section('script')
     <script>
         $(document).ready(function () {
 
+            $('[data-toggle="popover"]').popover();
+
             $(document).on('click', 'a.tags-etiquetar', function (e) {
                 e.preventDefault();
-                var arr = get_idArray();
+                $('#myModal').data('id', null);
+                var arr = get_docs();
                 if (arr.length > 0) $('#myModal').modal({'keyboard': true});
                 console.log('etiquetar seleccion: ', arr);
             });
@@ -32,8 +37,9 @@
             $(document).on('click', 'a.tag-etiquetar', function (e) {
                 e.preventDefault();
                 var id = $(this).parents('tr').data('id');
+                $('#myModal').data('id', id);
                 $('#myModal').modal({'keyboard': true});
-                console.log('etiquetar: ' + JSON.stringify([id]));
+                console.log('etiquetar: ', [id]);
             });
 
             $(document).on('click', 'a.tag-descargar', function (e) {
@@ -42,26 +48,27 @@
                 console.log('descargar: ' + id);
             });
 
-            $(document).on('change', 'input.tag-checkbox', function (e) {
+            $(document).on('change', 'input.doc-checkbox[type="checkbox"]', function (e) {
+                e.preventDefault();
                 var id = $(this).parents('tr').data('id');
                 var checked = $(this).prop('checked');
-                var tags_checkbox = $('input.tags-checkbox');
-                var countChecked = $('input.tag-checkbox:checked').length;
+                var docs_checkbox = $('input.docs-checkbox[type="checkbox"]');
+                var countChecked = $('input.doc-checkbox[type="checkbox"]:checked').length;
                 if (countChecked == 0) {
-                    tags_checkbox.prop('checked', false);
-                    tags_checkbox.prop('indeterminate', false);
+                    docs_checkbox.prop('checked', false);
+                    docs_checkbox.prop('indeterminate', false);
                 } else if (countChecked < 50) {
-                    tags_checkbox.prop('checked', false);
-                    tags_checkbox.prop('indeterminate', true);
+                    docs_checkbox.prop('checked', false);
+                    docs_checkbox.prop('indeterminate', true);
                 } else {
-                    tags_checkbox.prop('checked', 'true');
-                    tags_checkbox.prop('indeterminate', false);
+                    docs_checkbox.prop('checked', 'true');
+                    docs_checkbox.prop('indeterminate', false);
                 }
             });
 
-            $(document).on('change', 'input.tags-checkbox', function (e) {
+            $(document).on('change', 'input.docs-checkbox[type="checkbox"]', function (e) {
                 var checked = $(this).prop('checked');
-                $('input.tag-checkbox').prop('checked', checked);
+                $('input.doc-checkbox[type="checkbox"]').prop('checked', checked);
             });
 
             $('#myModal').on('shown.bs.modal', function () {

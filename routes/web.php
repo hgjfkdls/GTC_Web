@@ -24,6 +24,8 @@ Route::get('logout', function () {
     return redirect()->route('home');
 })->name('logout');
 
+Route::resource('etiquetador', 'EtiquetadorController');
+
 Route::resource('etiqueta', 'ClasificacionController');
 
 Route::group(['prefix' => 'correspondencia'], function () {

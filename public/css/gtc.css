@@ -16,8 +16,13 @@ div.tag {
     font-weight: bold;
     padding: 5px 10px 5px 10px;
     border-radius: 10px;
+    color: #000;
     background-color: #FFF;
     border: solid 1px #AAA;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: left;
 }
 
 .cursor-hand {
@@ -42,4 +47,42 @@ label.glyphicon-btn {
 
 .glyphicon-btn:hover {
     background: #CCC;
+}
+
+
+.mytooltip
+{
+    position: relative;
+    display: inline-block;
+}
+
+.mytooltip .tooltiptext {
+    visibility: hidden;
+    width: 200px;
+    top: 100%;
+    left: 50%;
+    margin-left: -100px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    border-radius: 6px;
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+.mytooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.mytooltip .tooltiptext::after {
+    content: " ";
+    position: absolute;
+    bottom: 100%;  /* At the top of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent black transparent;
 }
