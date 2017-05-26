@@ -42,22 +42,29 @@ class RegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
+            'email' => ['required', 'email', 'max:255', 'unique:users', 'regex:/^\w+@sacyr\.(cl|com)$/i'],
             'password' => 'required|min:6|confirmed',
+        ], [
+            'name.max' => 'El nombre no puede exeder los 255 carácteres',
+            'email.email' => 'El email no es una dirección de correo válida',
+            'email.regex' => 'El dominio del email debe ser @sacyr.cl o @sacyr.com',
+            'email.unique' => 'El email ingresado ya se encuentra registrado',
+            'password.min' => 'La contraseña debe tener como mínimo 6 caracteres',
+            'password.confirmed' => 'La confirmación de la contraseña no es válida'
         ]);
     }
 
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return User
      */
     protected function create(array $data)

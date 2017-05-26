@@ -16,7 +16,9 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('test', function () {
-    return view('test');
+    $user = \Illuminate\Support\Facades\Auth::user();
+    \Illuminate\Support\Facades\Mail::to($user)->send(new \App\Mail\ConfirmacionCuenta($user));
+    return view('test', ['user' => $user]);
 })->name('test');
 
 Route::get('logout', function () {
