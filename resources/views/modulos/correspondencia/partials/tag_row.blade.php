@@ -19,20 +19,20 @@
                         </li>
                         <li class="divider"></li>
                         <li class="dropdown-header"><b><span class="glyphicon glyphicon-pencil"></span> Estilo</b></li>
-                        <li>
-                            <a href="#">
-                                Color de Texto
-                                <input type="text" data-id="{{ $tag->id }}" data-target="color" class="color-picker"/>
-                                <script>
-                                    var cp = $('input.color-picker[data-id="{{ $tag->id }}"][data-target="color"]');
-                                    var tag = $('div.tag[data-id="{{ $tag->id }}"]');
-                                    cp.val(hexc(tag.css('color')));
-                                    cp.spectrum({
-                                        'showButtons': false,
-                                    });
-                                </script>
-                            </a>
-                        </li>
+                        {{--<li>--}}
+                            {{--<a href="#">--}}
+                                {{--Color de Texto--}}
+                                {{--<input type="text" data-id="{{ $tag->id }}" data-target="color" class="color-picker"/>--}}
+                                {{--<script>--}}
+                                    {{--var cp = $('input.color-picker[data-id="{{ $tag->id }}"][data-target="color"]');--}}
+                                    {{--var tag = $('div.tag[data-id="{{ $tag->id }}"]');--}}
+                                    {{--cp.val(hexc(tag.css('color')));--}}
+                                    {{--cp.spectrum({--}}
+                                        {{--'showButtons': false,--}}
+                                    {{--});--}}
+                                {{--</script>--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
                         <li>
                             <a href="#">
                                 Color de Fondo
@@ -48,12 +48,12 @@
                             </a>
                         </li>
                         <li class="dropdown-header"><b>Opciones</b></li>
-                        <li>
-                            <a href="#" class="tag-addSubtag">
-                                <span class="glyphicon glyphicon-plus"></span>
-                                Nueva Sub-Etiqueta
-                            </a>
-                        </li>
+                        {{--<li>--}}
+                            {{--<a href="#" class="tag-addSubtag">--}}
+                                {{--<span class="glyphicon glyphicon-plus"></span>--}}
+                                {{--Nueva Sub-Etiqueta--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
                         <li>
                             <a href="#" class="tag-destroy">
                                 <span class="glyphicon glyphicon-remove"></span>

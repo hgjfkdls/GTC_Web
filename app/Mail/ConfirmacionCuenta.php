@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -18,7 +19,7 @@ class ConfirmacionCuenta extends Mailable
      *
      * @return void
      */
-    public function __construct($user)
+    public function __construct(User $user)
     {
         //
         $this->user = $user;

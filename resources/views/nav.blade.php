@@ -11,8 +11,8 @@
                 230. Ruta 5, La Serena - Vallenar
             </a>
         </li>
-        <li class="{{ $response['id_obra'] == 190 ? 'active' : '' }} disabled">
-            <a href="{{ /*url()->route('correspondencia.' . $route, ['id_obra' => 190])*/'#' }}">
+        <li class="{{ $response['id_obra'] == 190 ? 'active' : '' }}">
+            <a href="{{ url()->route('correspondencia.' . $route, ['id_obra' => 190]) }}">
                 190. Alternativas de Acceso a Iquique
             </a>
         </li>

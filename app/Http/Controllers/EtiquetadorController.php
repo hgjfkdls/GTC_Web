@@ -10,6 +10,12 @@ use PhpParser\Node\Stmt\Foreach_;
 
 class EtiquetadorController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('active');
+    }
+
     /**
      * Display a listing of the resource.
      *

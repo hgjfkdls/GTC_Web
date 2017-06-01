@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class CorrespondenciaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('active');
+    }
+
     public function advanced_search(Request $request, $id_obra = 260)
     {
         $patterns = '';

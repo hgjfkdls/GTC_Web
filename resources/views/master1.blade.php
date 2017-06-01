@@ -16,9 +16,8 @@
 <body>
 <div class="container">
     <div class="container-fluid">
-        <h2><a href="{{ route('home') }}">@yield('title', 'Gestión Contractual > Motor de Búsqueda')</a></h2>
+        <h2 class="text-center"><a href="{{ route('home') }}">@yield('title', 'Gestión Contractual')</a></h2>
     </div>
-    <div class="container-fluid">@yield('nav')</div>
     <br>
     <div class="container-fluid">
         @yield('modulo')

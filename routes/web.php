@@ -16,9 +16,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('test', function () {
-    $user = \Illuminate\Support\Facades\Auth::user();
-    \Illuminate\Support\Facades\Mail::to($user)->send(new \App\Mail\ConfirmacionCuenta($user));
-    return view('test', ['user' => $user]);
+    return view('test');
 })->name('test');
 
 Route::get('logout', function () {
@@ -41,6 +39,16 @@ Route::group(['prefix' => 'correspondencia'], function () {
 
 Auth::routes();
 
-Route::get('/home', function () {
-    return redirect()->route('home');
+Route::get('/register_successful', function () {
+    Auth::user()->SendEmailActivate();
+    Auth::logout();
+    return view('auth.register_successful');
 });
+
+Route::get('/active', function (\Illuminate\Http\Request $request) {
+    return \App\User::active($request->getQueryString());
+})->name('active');
+
+Route::get('/user_not_actived', function(){
+    return view('auth.user_not_actived');
+})->name('user_not_actived');

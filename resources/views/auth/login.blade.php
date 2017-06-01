@@ -1,5 +1,5 @@
-@extends('modulos.base')
-@section('modulo_content')
+@extends('master1')
+@section('modulo')
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
@@ -52,7 +52,7 @@
                             <div class="form-group">
                                 <div class="col-md-8 col-md-offset-4">
                                     <a class="btn btn-link" href="{{ route('register') }}">
-                                        Registrate
+                                        Nuevo Registro
                                     </a>
                                 </div>
                             </div>
