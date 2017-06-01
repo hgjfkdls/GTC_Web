@@ -18,13 +18,13 @@
                     </li>
                 </ul>
             </li>
-            @if(Auth::check())
-                <li class="{{ $response['navbar'] == 'temas' ? 'active' : '' }}">
-                    <a href="{{ url()->route('correspondencia.etiquetas', ['id_obra' => $response['id_obra']]) }}">
-                        Etiquetas
-                    </a>
-                </li>
-            @endif
+            {{--@if(Auth::check())--}}
+                {{--<li class="{{ $response['navbar'] == 'temas' ? 'active' : '' }}">--}}
+                    {{--<a href="{{ url()->route('correspondencia.etiquetas', ['id_obra' => $response['id_obra']]) }}">--}}
+                        {{--Etiquetas--}}
+                    {{--</a>--}}
+                {{--</li>--}}
+            {{--@endif--}}
         </ul>
     </div>
 </nav>

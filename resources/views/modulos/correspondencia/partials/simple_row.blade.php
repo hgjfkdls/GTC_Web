@@ -23,20 +23,20 @@
                         ver texto plano
                     </a>
                 </li>
-                @if(Auth::check())
-                    <li>
-                        <a class="tag-etiquetar" href="#">
-                            <span class="glyphicon glyphicon-tags"></span>
-                            Etiquetar
-                        </a>
-                    </li>
-                @endif
-                <li>
-                    <a class="tag-descargar" href="#">
-                        <span class="glyphicon glyphicon-download-alt"></span>
-                        Descargar
-                    </a>
-                </li>
+                {{--@if(Auth::check())--}}
+                    {{--<li>--}}
+                        {{--<a class="tag-etiquetar" href="#">--}}
+                            {{--<span class="glyphicon glyphicon-tags"></span>--}}
+                            {{--Etiquetar--}}
+                        {{--</a>--}}
+                    {{--</li>--}}
+                {{--@endif--}}
+                {{--<li>--}}
+                    {{--<a class="tag-descargar" href="#">--}}
+                        {{--<span class="glyphicon glyphicon-download-alt"></span>--}}
+                        {{--Descargar--}}
+                    {{--</a>--}}
+                {{--</li>--}}
             </ul>
         </div>
     </td>

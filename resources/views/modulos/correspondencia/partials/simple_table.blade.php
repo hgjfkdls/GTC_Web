@@ -13,20 +13,20 @@
                     <li class="dropdown-header">
                         Selección
                     </li>
-                    @if(Auth::check())
-                        <li>
-                            <a class="tags-etiquetar" href="#">
-                                <span class="glyphicon glyphicon-tags"></span>
-                                Etiquetar Selección
-                            </a>
-                        </li>
-                    @endif
-                    <li>
-                        <a class="tags-descargar" href="#">
-                            <span class="glyphicon glyphicon-download-alt"></span>
-                            Descargar Selección
-                        </a>
-                    </li>
+                    {{--@if(Auth::check())--}}
+                        {{--<li>--}}
+                            {{--<a class="tags-etiquetar" href="#">--}}
+                                {{--<span class="glyphicon glyphicon-tags"></span>--}}
+                                {{--Etiquetar Selección--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
+                    {{--@endif--}}
+                    {{--<li>--}}
+                        {{--<a class="tags-descargar" href="#">--}}
+                            {{--<span class="glyphicon glyphicon-download-alt"></span>--}}
+                            {{--Descargar Selección--}}
+                        {{--</a>--}}
+                    {{--</li>--}}
                 </ul>
             </div>
         </th>
