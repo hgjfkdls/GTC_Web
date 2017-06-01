@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'Motor de Búsqueda')</title>
+    <title>@yield('title', 'Gestión Contractual')</title>
     {!! Html::style('css/bootstrap.css') !!}
     {!! Html::style('css/spectrum.css') !!}
     {!! Html::style('css/gtc.css') !!}
@@ -16,7 +16,7 @@
 <body>
 <div class="container">
     <div class="container-fluid">
-        <h2><a href="{{ route('home') }}">@yield('title', 'Gestión Contractual > Motor de Búsqueda')</a></h2>
+        <h2><a href="{{ route('home') }}">@yield('title', 'Gestión Contractual - Motor de Búsqueda')</a></h2>
     </div>
     <div class="container-fluid">@yield('nav')</div>
     <br>

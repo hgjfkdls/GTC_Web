@@ -75,6 +75,8 @@
             if (e.keyCode == 13 && nombre !== '') {
                 var id = input.parents('table.tag-table').data('id');
                 tag_update(id, {'nombre': nombre}, function (result) {
+                    var tag = $('div.tag[data-id="' + id + '"]');
+                    tag.text(nombre);
                     var table = input.parents('table.tag-table');
                     table.replaceWith(result);
                     if ($('div.tag-container[data-id_padre="' + id + '"]').length) {
