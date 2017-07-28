@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return redirect()->route('correspondencia.simple_search', ['id_obra' => 260]);
+    return view('home');//redirect()->route('correspondencia.simple_search', ['id_obra' => 260]);
 })->name('home');
 
 Route::get('test', function () {
@@ -27,6 +27,10 @@ Route::get('logout', function () {
 Route::resource('etiquetador', 'EtiquetadorController');
 
 Route::resource('etiqueta', 'ClasificacionController');
+
+Route::get("/home", function() {
+    return view('master_home');
+});
 
 Route::group(['prefix' => 'correspondencia'], function () {
     Route::get('etiquetas/{id_obra?}', 'ClasificacionController@index')->name('correspondencia.etiquetas');

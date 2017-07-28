@@ -1,3 +1,16 @@
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+div .GTC_navbar {
+    background-color: #777;
+    position: fixed;
+    top: 0;
+    height: 50px;
+    width: 100%;
+}
+
 div.tag-container {
 }
 
@@ -49,9 +62,7 @@ label.glyphicon-btn {
     background: #CCC;
 }
 
-
-.mytooltip
-{
+.mytooltip {
     position: relative;
     display: inline-block;
 }
@@ -79,7 +90,7 @@ label.glyphicon-btn {
 .mytooltip .tooltiptext::after {
     content: " ";
     position: absolute;
-    bottom: 100%;  /* At the top of the tooltip */
+    bottom: 100%; /* At the top of the tooltip */
     left: 50%;
     margin-left: -5px;
     border-width: 5px;
