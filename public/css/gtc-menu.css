@@ -1,0 +1,40 @@
+ul.gtc-menu {
+    list-style-type: none;
+    font-size: 80%;
+    color: #FFF;
+    margin: 0px -15px;
+    padding: 15px;
+    background-color: #2f3a44;
+    /*border: solid 1px black;*/
+}
+
+ul.gtc-menu ul {
+    list-style-type: none;
+    padding-left: 15px;
+}
+
+ul.gtc-menu li {
+    border-left: solid 1px black;
+    border-bottom: solid 1px black;
+    background-color: #2f3a44;
+}
+
+ul.gtc-menu li a {
+    text-decoration: none;
+    color: #FFF;
+    display: block;
+    padding: 8px 16px;
+}
+
+ul.gtc-menu li.active {
+    background-color: #000;
+}
+
+ul.gtc-menu li a:hover {
+    text-decoration: none;
+    background-color: #00006D;
+}
+
+ul.gtc-menu ul > li > a {
+    padding: 8px 16px;
+}

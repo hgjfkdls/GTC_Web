@@ -22,6 +22,33 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $menu = collect([
+            [
+                'name' => 'Control de Documentación',
+                'icon' => 'glyphicon glyphicon-file',
+                'data' => [
+                    [
+                        'name' => 'Correspondencia',
+                    ],
+                    [
+                        'name' => 'Presupuestos',
+                    ]
+                ],
+                'active' => true
+            ],
+            [
+                'name' => 'Documentos Contractuales',
+                'icon' => 'glyphicon glyphicon-bookmark',
+                'data' => [
+                    ['name' => 'Bases de Licitación'],
+                ],
+            ],
+            [
+                'name' => 'Reclamaciones',
+                'icon' => 'glyphicon glyphicon-book',
+                'data' => [],
+            ],
+        ]);
+        return view('master_home')->with("menu", $menu);
     }
 }

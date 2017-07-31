@@ -18,6 +18,7 @@
         </li>
     @endif
     @if(Auth::check())
+        <li></li>
         <li class="dropdown navbar-right">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                 {{ Auth::user()->name }} <span class="glyphicon glyphicon-option-vertical"></span>

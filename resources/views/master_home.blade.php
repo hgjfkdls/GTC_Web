@@ -5,34 +5,63 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'Gestión Contractual')</title>
-    {!! Html::style('css/bootstrap.css') !!}
-    {!! Html::style('css/spectrum.css') !!}
-    {!! Html::style('css/gtc.css') !!}
     {!! Html::script('js/jquery-3.2.0.min.js') !!}
     {!! Html::script('js/bootstrap.js') !!}
     {!! Html::script('js/spectrum.js') !!}
     {!! Html::script('js/gtc.js') !!}
+    {!! Html::style('css/bootstrap.css') !!}
+    {!! Html::style('css/spectrum.css') !!}
+    {!! Html::style('css/gtc.css') !!}
+    {!! Html::style('css/gtc-navbar.css') !!}
+    {!! Html::style('css/gtc-menu.css') !!}
+    {!! Html::style('css/gtc-dropdown.css') !!}
 </head>
-<body>
-<div class="container-fluid" style="height: 100%">
+<body class="gtc-body">
+<div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <div class="navbar navbar-inverse navbar-fixed-top">
-                <ul class="nav navbar-nav">
-                    <li class="navbar-brand">Gestión Técnico Contractual</li>
-                    <li class="active"><a href="#">Inicio</a></li>
-                </ul>
-            </div>
+            <ul class="gtc-navbar">
+                <li class="gtc-brand">Gestion Contractual</li>
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">News</a></li>
+                <li><a href="#">Contact</a></li>
+                @if(Auth::check())
+                    <li class="gtc-right"><a href="#"><span
+                                    class="glyphicon glyphicon-user"></span> {{ Auth::user()->name }}<span
+                                    class="glyphicon glyphicon-option-vertical"></span></a></li>
+                    <li class="gtc-right"><a href="#">Notificaciones</a></li>
+                @endif
+            </ul>
         </div>
     </div>
-    <div class="row" style="position: absolute; top: 51px; height: calc(100% - 51px); width: 100%">
-        <div class="col-md-2" style="background-color: #777; height: 100%">
-            menu
+    <div class="row">
+        <div class="col-md-2">
+            <ul class="gtc-menu">
+                @foreach(isset($menu) ? $menu : [] as $item)
+                    <li class="{{ isset($item['active']) ? ($item['active'] ? 'active' : '') : '' }}"><a><span
+                                    class="{{ $item['icon'] }}"></span> {{ $item['name'] }}<span
+                                    class="glyphicon glyphicon-chevron-right pull-right"></span></a>
+                        <ul>
+                            @foreach(isset($item['data']) ? $item['data'] : [] as $subitem)
+                                <li><a>{{ $subitem['name'] }}</a></li>
+                            @endforeach
+                        </ul>
+                    </li>
+                @endforeach
+            </ul>
         </div>
-        <div class="col-md-10" style="height: 100%; border: solid red 1px; overflow: scroll">
-            @for($i=0; $i < 100; $i++)
-                <div>Contenedor {{ $i }} </div>
-            @endfor
+        <div class="col-md-10" style="background-color: #FFF">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Gestión Contractual</h3>
+                </div>
+            </div>
+            <div class="jumbotron">
+                <div>{{ $menu }}</div>
+                @for($i=0; $i < 10; $i++)
+                    <div>Contenedor {{ $i }} </div>
+                @endfor
+            </div>
         </div>
     </div>
 </div>

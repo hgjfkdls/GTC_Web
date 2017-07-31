@@ -1,14 +1,7 @@
-html, body {
+body.gtc-body {
+    background-color: #2f3a44;
     width: 100%;
     height: 100%;
-}
-
-div .GTC_navbar {
-    background-color: #777;
-    position: fixed;
-    top: 0;
-    height: 50px;
-    width: 100%;
 }
 
 div.tag-container {

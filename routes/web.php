@@ -11,9 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');//redirect()->route('correspondencia.simple_search', ['id_obra' => 260]);
-})->name('home');
+Route::get('/', 'HomeController@index')->name('home');
+Route::get("/home", 'HomeController@index');
 
 Route::get('test', function () {
     return view('test');
@@ -27,10 +26,6 @@ Route::get('logout', function () {
 Route::resource('etiquetador', 'EtiquetadorController');
 
 Route::resource('etiqueta', 'ClasificacionController');
-
-Route::get("/home", function() {
-    return view('master_home');
-});
 
 Route::group(['prefix' => 'correspondencia'], function () {
     Route::get('etiquetas/{id_obra?}', 'ClasificacionController@index')->name('correspondencia.etiquetas');
@@ -53,6 +48,6 @@ Route::get('/active', function (\Illuminate\Http\Request $request) {
     return \App\User::active($request->getQueryString());
 })->name('active');
 
-Route::get('/user_not_actived', function(){
+Route::get('/user_not_actived', function () {
     return view('auth.user_not_actived');
 })->name('user_not_actived');
