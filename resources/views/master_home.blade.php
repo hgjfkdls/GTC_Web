@@ -18,49 +18,20 @@
 </head>
 <body class="gtc-body">
 <div class="container-fluid">
-    <div class="row">
+    <div class="row" style="height: 40px">
         <div class="col-md-12">
-            <ul class="gtc-navbar">
-                <li class="gtc-brand">Gestion Contractual</li>
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">News</a></li>
-                <li><a href="#">Contact</a></li>
-                @if(Auth::check())
-                    <li class="gtc-right"><a href="#"><span
-                                    class="glyphicon glyphicon-user"></span> {{ Auth::user()->name }}<span
-                                    class="glyphicon glyphicon-option-vertical"></span></a></li>
-                    <li class="gtc-right"><a href="#">Notificaciones</a></li>
-                @endif
-            </ul>
+            @include('navbar')
         </div>
     </div>
     <div class="row">
         <div class="col-md-2">
-            <ul class="gtc-menu">
-                @foreach(isset($menu) ? $menu : [] as $item)
-                    <li class="{{ isset($item['active']) ? ($item['active'] ? 'active' : '') : '' }}"><a><span
-                                    class="{{ $item['icon'] }}"></span> {{ $item['name'] }}<span
-                                    class="glyphicon glyphicon-chevron-right pull-right"></span></a>
-                        <ul>
-                            @foreach(isset($item['data']) ? $item['data'] : [] as $subitem)
-                                <li><a>{{ $subitem['name'] }}</a></li>
-                            @endforeach
-                        </ul>
-                    </li>
-                @endforeach
-            </ul>
+            @include('menu')
         </div>
-        <div class="col-md-10" style="background-color: #FFF">
+        <div class="col-md-10" style="background-color: #FFF; min-height: 400px;">
             <div class="row">
                 <div class="col-md-12">
-                    <h3>Gestión Contractual</h3>
+                    @yield('content')
                 </div>
-            </div>
-            <div class="jumbotron">
-                <div>{{ $menu }}</div>
-                @for($i=0; $i < 10; $i++)
-                    <div>Contenedor {{ $i }} </div>
-                @endfor
             </div>
         </div>
     </div>

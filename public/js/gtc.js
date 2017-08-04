@@ -1,6 +1,7 @@
 (function () {
     var $id_obra;
     var $tag_container;
+    var $duration = 200;
 
     $.prototype.replaceClass = function (a, b) {
         $(this).removeClass(a);
@@ -17,6 +18,20 @@
     };
 
     $(document).ready(function () {
+        $('ul.gtc-menu ul').hide();
+        $('ul.gtc-menu li.active').parents('ul.gtc-menu ul').show();
+        $('> a span:nth-child(2)', $('ul.gtc-menu li.active').parents('li')).replaceClass('glyphicon-chevron-right', 'glyphicon-chevron-down');
+        $(document).on('click', 'ul.gtc-menu li > a', function (e) {
+            $this = $(this);
+            $menu = $this.parents('ul:first');
+            $ul = $this.parent('li').children('ul');
+            if ($ul.length != 0 && $ul.css('display') == 'none') {
+                $menu.find('ul:visible').slideUp($duration);
+                $('span:nth-child(2)', $('li > a', $menu)).replaceClass('glyphicon-chevron-down', 'glyphicon-chevron-right');
+                $ul.slideDown($duration);
+                $('span:nth-child(2)', $this).replaceClass('glyphicon-chevron-right', 'glyphicon-chevron-down');
+            }
+        });
 
         $(document).on('move.spectrum', function (e, color) {
             var id = $(e.target).data('id');
@@ -202,8 +217,8 @@ function tag_update(id, obj, callBack) {
     var form = $('#form-update');
     var url = form.attr('action').replace(':TAG_ID', id);
     var data = form.serialize() + '&' + Object.keys(obj).map(function (key) {
-            return encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]);
-        }).join('&');
+        return encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]);
+    }).join('&');
     $.post(url, data, callBack);
 }
 
@@ -216,8 +231,8 @@ function tag_store(id_padre, id_obra, callBack) {
         'id_padre': id_padre
     };
     var data = form.serialize() + '&' + Object.keys(obj).map(function (key) {
-            return encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]);
-        }).join('&');
+        return encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]);
+    }).join('&');
     $.post(url, data, callBack);
 }
 
@@ -231,6 +246,6 @@ function tag_destroy(id, callBack) {
 function unirFormData(formSelector, data) {
     var f = $(formSelector);
     return f.serialize() + '&' + Object.keys(data).map(function (key) {
-            return encodeURIComponent(key) + '=' + encodeURIComponent(data[key]);
-        }).join('&');
+        return encodeURIComponent(key) + '=' + encodeURIComponent(data[key]);
+    }).join('&');
 }

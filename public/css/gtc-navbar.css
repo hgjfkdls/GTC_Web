@@ -1,27 +1,33 @@
 ul.gtc-navbar {
     list-style-type: none;
     font-size: 85%;
-    overflow: hidden;
+    /*overflow: hidden;*/
+    position: static;
     margin: 0px -15px 5px -15px;
     padding: 0px 15px;
     color: #FFF;
     background-color: #444;
     border-bottom: solid 1px black;
-    box-shadow: 0px 8px 15px 0px rgba(0,0,0,.2);
+    box-shadow: 0px 8px 15px 0px rgba(0,0,0,.5);
+    height: 33px;
+    z-index: 1;
 }
 
-ul.gtc-fixed {
+
+ul.gtc-navbar.gtc-fixed {
+    margin: 0px -15px;
     position: fixed;
-    bottom: 0px;
     width: 100%;
+    /*box-shadow: 0px 8px 15px 0px rgba(0,0,0,.5);*/
 }
 
-ul.gtc-navbar li {
+ul.gtc-navbar > li {
+    position: relative;
     float: left;
 }
 
-ul.gtc-navbar li.gtc-right {
-    float: right;
+ul.gtc-navbar li.disabled a {
+    cursor: not-allowed;
 }
 
 ul.gtc-navbar li.gtc-brand {
@@ -31,22 +37,43 @@ ul.gtc-navbar li.gtc-brand {
     color: #CCC;
 }
 
-ul.gtc-navbar li.active {
-    background-color: #000;
-}
-
-ul.gtc-navbar.vertical li {
-    float: none;
-}
-
-ul.gtc-navbar li a {
+ul.gtc-navbar li > a {
     text-decoration: none;
     display: block;
+    cursor: pointer;
+    cursor: hand;
     color: #FFF;
     padding: 8px 16px;
 }
 
-ul.gtc-navbar li a:hover {
+ul.gtc-navbar li.active > a {
+    text-decoration: none;
+    color: #FF0;
+    background-color: #000;
+}
+
+ul.gtc-navbar li:hover {
     text-decoration: none;
     background-color: darkblue;
+}
+
+ul.gtc-navbar li.gtc-dropdown ul {
+    list-style-type: none;
+    position: absolute;
+    display: none;
+    z-index: 1;
+    padding: 0px;
+    background-color: #444;
+    border: solid 1px black;
+    box-shadow: 0px 8px 15px 0px rgba(0,0,0,.5);
+    min-width: 150px;
+}
+
+ul.gtc-navbar li.gtc-dropdown:hover > ul {
+    display: block;
+}
+
+ul.gtc-navbar li.gtc-dropdown:hover > ul.gtc-dropdown-right {
+    display: block;
+    right: 0px;
 }
