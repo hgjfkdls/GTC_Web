@@ -3,7 +3,7 @@ ul.gtc-menu {
     font-size: 80%;
     color: #ffffff;
     margin: 0px -15px;
-    padding: 15px;
+    padding: 0px 15px;
     background-color: #2f3a44;
 }
 
@@ -24,7 +24,19 @@ ul.gtc-menu li > a {
     cursor: pointer;
     cursor: hand;
     padding: 8px 16px;
-    color: #ffffff;
+    color: #AAA;
+    background-color: #2f3a44;
+    border-bottom: solid 1px black;
+}
+
+ul.gtc-menu li > a:focus {
+    outline: solid 1px yellow;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    cursor: hand;
+    padding: 8px 16px;
+    color: #FFF;
     background-color: #2f3a44;
     border-bottom: solid 1px black;
 }
@@ -36,5 +48,6 @@ ul.gtc-menu li.active > a {
 
 ul.gtc-menu li > a:hover {
     text-decoration: none;
+    color: #FFF;
     background-color: #00006D;
 }

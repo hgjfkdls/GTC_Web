@@ -18,10 +18,71 @@
     };
 
     $(document).ready(function () {
+
+        $('ul.gtc-menu a').on('click', function (e) {
+            $(this).focus();
+        });
+
+        $(document).on('keydown', 'ul.gtc-menu a:focus', function (e) {
+            var prevent = false;
+            var $this = $(this);
+            var $li_first = $this.parent('ul.gtc-menu li:first');
+            var $ul_parent = $li_first.parents('ul:first');
+            var $ull_parent = $ul_parent.parents('ul:first');
+            var $li_next = $li_first.next('li');
+            var $li_prev = $li_first.prev('li');
+            var $li_parent = $li_first.parents('li:first');
+            var $ul_child = $('ul:first', $li_first);
+            switch (e.keyCode) {
+                case 40:
+                    if ($ul_child.length != 0) {
+                        $('li:first > a', $ul_child).focus();
+                        prevent = true;
+                    } else if ($li_next.length != 0) {
+                        $('a:first', $li_next).focus();
+                        prevent = true;
+                    } else if ($li_next.length == 0 && $li_parent.next('li').length != 0) {
+                        $('a:first', $li_parent.next('li')).focus();
+                        prevent = true;
+                    }
+                    break;
+                case 38:
+                    if ($li_prev.length != 0) {
+                        $('a:first, select:first', $li_prev).focus();
+                        prevent = true;
+                        console.log($li_prev);
+                    } else if ($li_parent.length != 0) {
+                        $('a:first', $li_parent).focus();
+                        prevent = true;
+                        console.log('2');
+                    } else {
+                    }
+                    break
+                case 37:
+                    var a = !($li_parent.length == 0);
+                    if (a) {
+                        $('a:first', $li_parent).focus();
+                        prevent = true;
+                    } else if ($ull_parent.length == 0) {
+                        $('a:first', $li_prev).focus();
+                    }
+                    break;
+                case 39:
+                    if ($li_next.length != 0) {
+                        $('a:first', $li_next).focus();
+                    }
+                    break;
+                default:
+                    break;
+            }
+            if (prevent) e.preventDefault();
+            // console.log(e.keyCode);
+        });
+
         $('ul.gtc-menu ul').hide();
         $('ul.gtc-menu li.active').parents('ul.gtc-menu ul').show();
         $('> a span:nth-child(2)', $('ul.gtc-menu li.active').parents('li')).replaceClass('glyphicon-chevron-right', 'glyphicon-chevron-down');
-        $(document).on('click', 'ul.gtc-menu li > a', function (e) {
+        $(document).on('focus', 'ul.gtc-menu li > a', function (e) {
             $this = $(this);
             $menu = $this.parents('ul:first');
             $ul = $this.parent('li').children('ul');

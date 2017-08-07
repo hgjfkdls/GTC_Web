@@ -21,6 +21,10 @@ ul.gtc-navbar.gtc-fixed {
     /*box-shadow: 0px 8px 15px 0px rgba(0,0,0,.5);*/
 }
 
+ul.gtc-navbar li {
+    background-color: inherit;
+}
+
 ul.gtc-navbar > li {
     position: relative;
     float: left;

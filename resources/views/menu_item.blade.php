@@ -1,6 +1,6 @@
 @if(isset($item))
     <li class="{{ isset($item['active']) ? ($item['active'] ? 'active' : '') : '' }}">
-        <a href="{{ isset($item['href']) ? $item['href'] : '#' }}">
+        <a href="{{ isset($item['href']) ? $item['href'] : '#!' }}">
             <span class="{{ isset($item['icon']) ? $item['icon'] : '' }}"></span>&nbsp;
             {{ isset($item['name']) ? $item['name'] : '' }}
             @if(isset($item['data']) && count($item['data']) > 0 )
