@@ -1,28 +1,28 @@
 ul.gtc-navbar {
     list-style-type: none;
     font-size: 85%;
-    /*overflow: hidden;*/
-    position: static;
-    margin: 0px -15px 5px -15px;
+    /*position: static;*/
+    /*margin: 0px -15px 5px -15px;*/
     padding: 0px 15px;
-    color: #FFF;
+    color: #BBB;
     background-color: #444;
     border-bottom: solid 1px black;
     box-shadow: 0px 8px 15px 0px rgba(0,0,0,.5);
-    height: 33px;
-    z-index: 1;
+    height: 34px;
+    z-index: 2000;
 }
 
 
 ul.gtc-navbar.gtc-fixed {
-    margin: 0px -15px;
     position: fixed;
-    width: 100%;
-    /*box-shadow: 0px 8px 15px 0px rgba(0,0,0,.5);*/
+    /*width: 100%;*/
+    left: 0px;
+    right: 0px;
 }
 
 ul.gtc-navbar li {
-    background-color: inherit;
+    color: inherit;
+    background-color: #444;
 }
 
 ul.gtc-navbar > li {
@@ -35,29 +35,24 @@ ul.gtc-navbar li.disabled a {
 }
 
 ul.gtc-navbar li.gtc-brand {
-    text-decoration: none;
     font-weight: bold;
     padding: 8px 16px;
-    color: #CCC;
+    color: #DDD;
 }
 
 ul.gtc-navbar li > a {
-    text-decoration: none;
     display: block;
-    cursor: pointer;
-    cursor: hand;
-    color: #FFF;
+    color: inherit;
     padding: 8px 16px;
 }
 
 ul.gtc-navbar li.active > a {
-    text-decoration: none;
     color: #FF0;
     background-color: #000;
 }
 
 ul.gtc-navbar li:hover {
-    text-decoration: none;
+    color: #FFF;
     background-color: darkblue;
 }
 

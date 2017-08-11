@@ -1,43 +1,29 @@
 ul.gtc-menu {
     list-style-type: none;
     font-size: 80%;
-    color: #ffffff;
+    color: inherit;
     margin: 0px -15px;
     padding: 0px 15px;
     background-color: #2f3a44;
+    border: solid 1px #777;
 }
 
 ul.gtc-menu ul {
-    background-color: #555;
     list-style-type: none;
+    background-color: #555;
     padding-left: 15px;
 }
 
 ul.gtc-menu li {
+    color: #BBB;
     background-color: #2f3a44;
 }
-
 
 ul.gtc-menu li > a {
-    text-decoration: none;
     display: block;
-    cursor: pointer;
-    cursor: hand;
     padding: 8px 16px;
-    color: #AAA;
-    background-color: #2f3a44;
-    border-bottom: solid 1px black;
-}
-
-ul.gtc-menu li > a:focus {
-    outline: solid 1px yellow;
-    text-decoration: none;
-    display: block;
-    cursor: pointer;
-    cursor: hand;
-    padding: 8px 16px;
-    color: #FFF;
-    background-color: #2f3a44;
+    color: inherit;
+    background-color: inherit;
     border-bottom: solid 1px black;
 }
 
@@ -47,7 +33,6 @@ ul.gtc-menu li.active > a {
 }
 
 ul.gtc-menu li > a:hover {
-    text-decoration: none;
     color: #FFF;
     background-color: #00006D;
 }

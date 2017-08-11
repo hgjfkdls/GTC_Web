@@ -8,7 +8,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 gtc-control">
         <ul class="gtc-menu">
             @foreach(isset($menu) ? $menu : [] as $item)
                 @include('menu_item', ['item' => $item])

@@ -19,22 +19,66 @@
 
     $(document).ready(function () {
 
-        $('ul.gtc-menu a').on('click', function (e) {
-            $(this).focus();
-        });
-
-        $(document).on('keydown', 'ul.gtc-menu a:focus', function (e) {
+        $(document).on('keydown', '.gtc-control .gtc-menu a:focus', function (e) {
             var prevent = false;
             var $this = $(this);
-            var $li_first = $this.parent('ul.gtc-menu li:first');
-            var $ul_parent = $li_first.parents('ul:first');
+            var $ul_master = $('ul:first', $this.parents('.gtc-control'));
+            var $li = $this.parent('li:first');
+            var $li_next = $li.next('li');
+            var $li_prev = $li.prev('li');
+            var $li_parent = $li.parents('li:first');
+            var $ul_parent = $li.parents('ul:first');
+            var $ul_child = $li.children('ul:first');
             var $ull_parent = $ul_parent.parents('ul:first');
-            var $li_next = $li_first.next('li');
-            var $li_prev = $li_first.prev('li');
-            var $li_parent = $li_first.parents('li:first');
-            var $ul_child = $('ul:first', $li_first);
             switch (e.keyCode) {
-                case 40:
+                case 35: // fin
+                    if ($ul_master.length != 0) {
+                        if ($('li:visible:last a:first:focus', $ul_master).length == 0) {
+                            $('li:visible:last a:first', $ul_master).focus();
+                            prevent = true;
+                        }
+                    }
+                    break;
+                case 36: // inicio
+                    if ($ul_master.length != 0) {
+                        if ($('li:visible:first a:first:focus', $ul_master).length == 0) {
+                            $('li:visible:first a:first', $ul_master).focus();
+                            prevent = true;
+                        }
+                    }
+                    break;
+                case 37: // left
+                    var a = !($li_parent.length == 0);
+                    if (a) {
+                        $('a:first', $li_parent).focus();
+                        prevent = true;
+                    } else if ($ull_parent.length == 0) {
+                        $('a:first', $li_prev).focus();
+                        prevent = true;
+                    }
+                    break;
+                case 38: // up
+                    if ($li_prev.length != 0) {
+                        $('a:first, select:first', $li_prev).focus();
+                        prevent = true;
+                    } else if ($li_parent.length != 0) {
+                        $('a:first', $li_parent).focus();
+                        prevent = true;
+                    }
+                    break
+                case 39: // right
+                    if ($li_next.length != 0) {
+                        $('a:first', $li_next).focus();
+                        prevent = true;
+                    } else if ($li_parent.next('li').length != 0) {
+                        $('a:first', $li_parent.next('li')).focus();
+                        prevent = true;
+                    } else if ($ul_child.length != 0) {
+                        $('li:first > a', $ul_child).focus();
+                        prevent = true;
+                    }
+                    break;
+                case 40: // down
                     if ($ul_child.length != 0) {
                         $('li:first > a', $ul_child).focus();
                         prevent = true;
@@ -46,37 +90,10 @@
                         prevent = true;
                     }
                     break;
-                case 38:
-                    if ($li_prev.length != 0) {
-                        $('a:first, select:first', $li_prev).focus();
-                        prevent = true;
-                        console.log($li_prev);
-                    } else if ($li_parent.length != 0) {
-                        $('a:first', $li_parent).focus();
-                        prevent = true;
-                        console.log('2');
-                    } else {
-                    }
-                    break
-                case 37:
-                    var a = !($li_parent.length == 0);
-                    if (a) {
-                        $('a:first', $li_parent).focus();
-                        prevent = true;
-                    } else if ($ull_parent.length == 0) {
-                        $('a:first', $li_prev).focus();
-                    }
-                    break;
-                case 39:
-                    if ($li_next.length != 0) {
-                        $('a:first', $li_next).focus();
-                    }
-                    break;
                 default:
                     break;
             }
             if (prevent) e.preventDefault();
-            // console.log(e.keyCode);
         });
 
         $('ul.gtc-menu ul').hide();
@@ -87,9 +104,9 @@
             $menu = $this.parents('ul:first');
             $ul = $this.parent('li').children('ul');
             if ($ul.length != 0 && $ul.css('display') == 'none') {
-                $menu.find('ul:visible').slideUp($duration);
+                $menu.find('ul:visible').hide($duration);
                 $('span:nth-child(2)', $('li > a', $menu)).replaceClass('glyphicon-chevron-down', 'glyphicon-chevron-right');
-                $ul.slideDown($duration);
+                $ul.show($duration);
                 $('span:nth-child(2)', $this).replaceClass('glyphicon-chevron-right', 'glyphicon-chevron-down');
             }
         });
