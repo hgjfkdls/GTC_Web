@@ -12,7 +12,7 @@
                     <b>Documento</b>
                 </li>
                 <li>
-                    <a href="{{ url()->route('correspondencia.show_doc', [$row->id]) }}" target="_blank">
+                    <a href="{{ url()->route('correspondencia.show_doc_id', [$row->id]) }}" target="_blank">
                         <span class="glyphicon glyphicon-file"></span>
                         ver pdf
                     </a>

@@ -15,7 +15,7 @@
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-left">
                                     <li>
-                                        <a href="{{ url()->route('correspondencia.show_doc', [$row['data']->id]) }}"
+                                        <a href="{{ url()->route('correspondencia.show_doc', [$row['data']->codigo]) }}"
                                            target="_blank">
                                             <span class="glyphicon glyphicon-file"></span> ver pdf
                                         </a>

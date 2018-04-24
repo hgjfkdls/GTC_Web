@@ -52,7 +52,7 @@
                             <div class="form-group">
                                 <div class="col-md-8 col-md-offset-4">
                                     <a class="btn btn-link" href="{{ route('register') }}">
-                                        Nuevo Registro
+                                        ¿Aún no tienes cuenta?... Regístrate!!!
                                     </a>
                                 </div>
                             </div>

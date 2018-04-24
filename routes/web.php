@@ -33,7 +33,8 @@ Route::group(['prefix' => 'correspondencia'], function () {
     Route::get('/{id_obra?}', 'CorrespondenciaController@simple_search')->name('correspondencia.simple_search');
     Route::get('simple_search/{id_obra?}', 'CorrespondenciaController@simple_search')->name('correspondencia.simple_search');
     Route::get('advanced_search/{id_obra?}', 'CorrespondenciaController@advanced_search')->name('correspondencia.advanced_search');
-    Route::get('show_doc/{id}', 'CorrespondenciaController@show_doc')->name('correspondencia.show_doc');
+    Route::get('show_doc/{codigo}', 'DocController@show')->name('correspondencia.show_doc');
+    Route::get('show_doc_id/{id}', 'DocController@show_id')->name('correspondencia.show_doc_id');
     Route::get('show_txt/{id}', 'CorrespondenciaController@show_txt')->name('correspondencia.show_txt');
 });
 

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Mail\CambioDireccion;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Auth;
@@ -34,6 +35,11 @@ class User extends Authenticatable
     {
         $this->update(['token' => bin2hex(random_bytes(30))]);
         Mail::to($this)->send(new ConfirmacionCuenta($this));
+    }
+
+    public function SendEmailCambioDireccion()
+    {
+        Mail::to($this)->send(new CambioDireccion($this));
     }
 
     public static function active($token)

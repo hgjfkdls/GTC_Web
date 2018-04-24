@@ -49,7 +49,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
-            'email' => ['required', 'email', 'max:255', 'unique:users', 'regex:/^\w+@sacyr\.(cl|com)$/i'],
+            'email' => ['required', 'email', 'max:255', 'unique:users', 'regex:/^(\w|\.)+@(sacyr\.(cl|com))$/i'],
             'password' => 'required|min:6|confirmed',
         ], [
             'name.max' => 'El nombre no puede exeder los 255 carácteres',
