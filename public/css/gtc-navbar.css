@@ -1,0 +1,78 @@
+ul.gtc-navbar {
+    list-style-type: none;
+    font-size: 85%;
+    /*position: static;*/
+    /*margin: 0px -15px 5px -15px;*/
+    padding: 0px 15px;
+    color: #BBB;
+    background-color: #444;
+    border-bottom: solid 1px black;
+    box-shadow: 0px 8px 15px 0px rgba(0,0,0,.5);
+    height: 34px;
+    z-index: 2000;
+}
+
+
+ul.gtc-navbar.gtc-fixed {
+    position: fixed;
+    /*width: 100%;*/
+    left: 0px;
+    right: 0px;
+}
+
+ul.gtc-navbar li {
+    color: inherit;
+    background-color: #444;
+}
+
+ul.gtc-navbar > li {
+    position: relative;
+    float: left;
+}
+
+ul.gtc-navbar li.disabled a {
+    cursor: not-allowed;
+}
+
+ul.gtc-navbar li.gtc-brand {
+    font-weight: bold;
+    padding: 8px 16px;
+    color: #DDD;
+}
+
+ul.gtc-navbar li > a {
+    display: block;
+    color: inherit;
+    padding: 8px 16px;
+}
+
+ul.gtc-navbar li.active > a {
+    color: #FF0;
+    background-color: #000;
+}
+
+ul.gtc-navbar li:hover {
+    color: #FFF;
+    background-color: darkblue;
+}
+
+ul.gtc-navbar li.gtc-dropdown ul {
+    list-style-type: none;
+    position: absolute;
+    display: none;
+    z-index: 1;
+    padding: 0px;
+    background-color: #444;
+    border: solid 1px black;
+    box-shadow: 0px 8px 15px 0px rgba(0,0,0,.5);
+    min-width: 150px;
+}
+
+ul.gtc-navbar li.gtc-dropdown:hover > ul {
+    display: block;
+}
+
+ul.gtc-navbar li.gtc-dropdown:hover > ul.gtc-dropdown-right {
+    display: block;
+    right: 0px;
+}

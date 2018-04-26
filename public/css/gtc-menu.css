@@ -1,0 +1,38 @@
+ul.gtc-menu {
+    list-style-type: none;
+    font-size: 80%;
+    color: inherit;
+    margin: 0px -15px;
+    padding: 0px 15px;
+    background-color: #2f3a44;
+    border: solid 1px #777;
+}
+
+ul.gtc-menu ul {
+    list-style-type: none;
+    background-color: #555;
+    padding-left: 15px;
+}
+
+ul.gtc-menu li {
+    color: #BBB;
+    background-color: #2f3a44;
+}
+
+ul.gtc-menu li > a {
+    display: block;
+    padding: 8px 16px;
+    color: inherit;
+    background-color: inherit;
+    border-bottom: solid 1px black;
+}
+
+ul.gtc-menu li.active > a {
+    color: #FF0;
+    background-color: #000;
+}
+
+ul.gtc-menu li > a:hover {
+    color: #FFF;
+    background-color: #00006D;
+}

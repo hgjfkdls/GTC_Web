@@ -1,3 +1,9 @@
+body.gtc-body {
+    background-color: #2f3a44;
+    width: 100%;
+    height: 100%;
+}
+
 div.tag-container {
 }
 
@@ -49,9 +55,7 @@ label.glyphicon-btn {
     background: #CCC;
 }
 
-
-.mytooltip
-{
+.mytooltip {
     position: relative;
     display: inline-block;
 }
@@ -79,10 +83,50 @@ label.glyphicon-btn {
 .mytooltip .tooltiptext::after {
     content: " ";
     position: absolute;
-    bottom: 100%;  /* At the top of the tooltip */
+    bottom: 100%; /* At the top of the tooltip */
     left: 50%;
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
     border-color: transparent transparent black transparent;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+    background-color: #444;
+}
+
+::-webkit-scrollbar-track {
+    /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);*/
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);*/
+    background-color: #777;
+}
+
+.gtc-control {
+    border: solid 1px blue;
+}
+
+.gtc-control :focus {
+    outline: solid 1px yellow;
+    color: #FFF;
+    background-color: inherit;
+}
+
+.gtc-control a {
+    text-decoration: none;
+    cursor: pointer;
+    cursor: hand;
+}
+
+.gtc-control a:focus {
+    text-decoration: none;
+}
+
+.gtc-control a:hover {
+    text-decoration: none;
 }

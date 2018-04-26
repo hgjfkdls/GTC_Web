@@ -1,5 +1,5 @@
-@extends('master1')
-@section('modulo')
+@extends('layouts.master')
+@section('content')
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
@@ -57,6 +57,9 @@
                                         Registrar
                                     </button>
                                 </div>
+                            </div>
+                            <div class="col-md-6 col-md-offset-4">
+                                <a href="{{ route('login') }}">Inicio de Sesión</a>
                             </div>
                         </form>
                     </div>
